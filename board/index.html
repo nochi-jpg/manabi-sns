@@ -1,0 +1,246 @@
+<title>まなび堂 SNSボード</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=DotGothic16&display=swap">
+<style>
+/* layout: 週えらび → 3つのSNSを横にならべた列（スマホはタブで1列）→ 投稿カード（判定ボタン3つ） */
+:root{
+  --bg:#f6f4fb; --panel:#ffffff; --ink:#26244f; --sub:#6b6890; --line:#e3e0f0;
+  --x:#26244f; --ig:#e8467f; --note:#16a37a; --accent:#7c5cf0;
+  --ok:#16a37a; --okbg:#ddf5ec; --fix:#c98a00; --fixbg:#fff2cc; --ng:#c63d5a; --ngbg:#fbe1e7; --wait:#6b6890; --waitbg:#ecebf5;
+  --shadow:0 1px 0 rgba(38,36,79,.06),0 6px 18px rgba(38,36,79,.08);
+  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-dot:"DotGothic16","M PLUS Rounded 1c",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15142a; --panel:#1f1e3a; --ink:#ecebff; --sub:#a9a6cc; --line:#34325a;
+  --x:#c9c6ff; --ig:#ff7aa8; --note:#43d1a4; --accent:#a48cff;
+  --ok:#43d1a4; --okbg:#173d33; --fix:#ffc93d; --fixbg:#3d3214; --ng:#ff7f97; --ngbg:#45202b; --wait:#a9a6cc; --waitbg:#2a2948;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15142a; --panel:#1f1e3a; --ink:#ecebff; --sub:#a9a6cc; --line:#34325a;
+  --x:#c9c6ff; --ig:#ff7aa8; --note:#43d1a4; --accent:#a48cff;
+  --ok:#43d1a4; --okbg:#173d33; --fix:#ffc93d; --fixbg:#3d3214; --ng:#ff7f97; --ngbg:#45202b; --wait:#a9a6cc; --waitbg:#2a2948;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{margin:0;font-size:26px;font-weight:800;letter-spacing:.02em;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-dot);font-weight:400;font-size:13px;color:var(--sub);letter-spacing:.12em}
+.weeks{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:14px;font-weight:700;border:2px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:38px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--panel)}
+.chip:focus-visible,.btn:focus-visible,.tab:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.summary{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--panel);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow)}
+.summary .theme{flex:1 1 320px;min-width:0}
+.summary .theme b{font-size:16px}
+.summary .theme p{margin:2px 0 0;color:var(--sub);font-size:14px}
+.counts{display:flex;gap:8px;flex-wrap:wrap}
+.cnt{display:flex;align-items:center;gap:6px;border-radius:10px;padding:6px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px;min-width:96px;justify-content:center}
+.tabs{display:none;gap:6px}
+.tab{flex:1;font:inherit;font-weight:800;font-size:14px;border:none;border-radius:12px;padding:10px 6px;background:var(--panel);color:var(--sub);cursor:pointer;box-shadow:var(--shadow)}
+.tab[aria-selected="true"]{color:var(--panel)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.colhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:14px;color:#fff;font-weight:800}
+.colhead span{font-family:var(--f-dot);font-weight:400;font-size:12px;opacity:.9}
+.colhead.x{background:var(--x);color:var(--panel)} .colhead.ig{background:var(--ig);color:#fff} .colhead.note{background:var(--note);color:#fff}
+.role{margin:0 2px;color:var(--sub);font-size:13px}
+.card{background:var(--panel);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px;border:2px solid transparent;min-width:0}
+.card.s-ok{border-color:var(--ok)} .card.s-fix{border-color:var(--fix)} .card.s-ng{border-color:var(--ng);opacity:.7}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.when{font-family:var(--f-dot);font-size:14px;font-variant-numeric:tabular-nums}
+.pill{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.p-pending{background:var(--waitbg);color:var(--wait)} .p-ok{background:var(--okbg);color:var(--ok)} .p-fix{background:var(--fixbg);color:var(--fix)} .p-ng{background:var(--ngbg);color:var(--ng)}
+.card h3{margin:0;font-size:16px;font-weight:800;line-height:1.4;text-wrap:balance}
+.aim{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:var(--waitbg);color:var(--sub)}
+.imgs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x mandatory}
+.imgs img{flex:0 0 auto;height:150px;width:auto;max-width:100%;border-radius:10px;border:1px solid var(--line);scroll-snap-align:start;background:var(--bg)}
+.imgs.one img{height:auto;width:100%}
+.noimg{font-size:13px;color:var(--sub);border:1px dashed var(--line);border-radius:10px;padding:8px 10px}
+.body{white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.7;margin:0;max-height:11.9em;overflow:hidden;position:relative}
+.body.open{max-height:none}
+.more{align-self:flex-start;font:inherit;font-size:13px;font-weight:700;color:var(--accent);background:none;border:none;padding:0;cursor:pointer}
+.why{font-size:13px;color:var(--sub);border-left:3px solid var(--line);padding-left:10px;margin:0}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btn{font:inherit;font-weight:800;font-size:14px;height:42px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.btn.ok[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--panel)}
+.btn.fix[aria-pressed="true"]{background:var(--fix);border-color:var(--fix);color:var(--panel)}
+.btn.ng[aria-pressed="true"]{background:var(--ng);border-color:var(--ng);color:var(--panel)}
+.btn:disabled{opacity:.5;cursor:default}
+.memo{display:flex;flex-direction:column;gap:6px}
+.memo textarea{font:inherit;font-size:14px;min-height:70px;border-radius:10px;border:2px solid var(--line);padding:8px 10px;background:var(--bg);color:var(--ink);resize:vertical;width:100%}
+.memo .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.memo .saved{font-size:12px;color:var(--sub)}
+.memo .btn{width:auto;padding:0 18px;height:36px}
+.empty{background:var(--panel);border-radius:16px;padding:22px;color:var(--sub);text-align:center;box-shadow:var(--shadow)}
+.foot{background:var(--panel);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);font-size:14px}
+.foot b{color:var(--accent)}
+.offline{background:var(--fixbg);color:var(--fix);border-radius:12px;padding:10px 14px;font-weight:700;font-size:14px}
+@media (max-width:860px){
+  .tabs{display:flex}
+  .cols{grid-template-columns:minmax(0,1fr)}
+  .col{display:none} .col.show{display:flex}
+}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s,opacity .2s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1><small>MANABIDO SNS BOARD</small>まなび堂 SNSボード</h1>
+    <div class="weeks" id="weeks" role="group" aria-label="週をえらぶ"></div>
+  </header>
+
+  <div id="offline" class="offline" hidden>ボードのデータにつながっていません。少し待ってから開きなおしてください。</div>
+
+  <section class="summary" aria-label="今週のまとめ">
+    <div class="theme"><b id="wkTitle">投稿案を読みこみ中…</b><p id="wkNote">Claudeが作った投稿案が、ここに週ごとに並びます。</p></div>
+    <div class="counts">
+      <div class="cnt p-pending">確認まち <span id="cPending">0</span></div>
+      <div class="cnt p-ok">OK <span id="cOk">0</span></div>
+      <div class="cnt p-fix">なおして <span id="cFix">0</span></div>
+      <div class="cnt p-ng">やめる <span id="cNg">0</span></div>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="SNSをえらぶ">
+    <button class="tab" role="tab" id="t-x" data-p="x" aria-selected="true">X</button>
+    <button class="tab" role="tab" id="t-ig" data-p="ig" aria-selected="false">Instagram</button>
+    <button class="tab" role="tab" id="t-note" data-p="note" aria-selected="false">note</button>
+  </div>
+
+  <div class="cols">
+    <section class="col show" id="col-x" aria-label="X">
+      <div class="colhead x">X（入口）<span>@nochi_manabido</span></div>
+      <p class="role">短い文で、人を連れてくる。くわしくはnoteへ。</p>
+      <div class="list" data-p="x" style="display:flex;flex-direction:column;gap:12px"></div>
+    </section>
+    <section class="col" id="col-ig" aria-label="Instagram">
+      <div class="colhead ig">Instagram（保存資料）<span>nochi_manabido</span></div>
+      <p class="role">先生向けに、めくって保存される画像。</p>
+      <div class="list" data-p="ig" style="display:flex;flex-direction:column;gap:12px"></div>
+    </section>
+    <section class="col" id="col-note" aria-label="note">
+      <div class="colhead note">note（本編）<span>#まなび開発記</span></div>
+      <p class="role">開発記の連載。読みものとして残す。</p>
+      <div class="list" data-p="note" style="display:flex;flex-direction:column;gap:12px"></div>
+    </section>
+  </div>
+
+  <div class="foot">えらび終わったら、Claudeのチャットで <b>「ボード反映」</b> と送ってください。OKの投稿を予約に入れ、「なおして」の投稿はメモどおりに直して、もう一度ここに出します。</div>
+</div>
+
+<script>
+const LABEL={pending:'確認まち',ok:'OK',fix:'なおして',ng:'やめる'};
+const WD=['日','月','火','水','木','金','土'];
+let db=null, posts=[], weeks=[], curWeek=null, openText=new Set(), memoDraft={};
+const $=s=>document.querySelector(s);
+
+function fmt(iso){
+  if(!iso) return '日時 未定';
+  const d=new Date(iso); if(isNaN(d)) return iso;
+  const t=new Date(d.toLocaleString('en-US',{timeZone:'Asia/Tokyo'}));
+  const p=n=>String(n).padStart(2,'0');
+  return `${t.getMonth()+1}/${t.getDate()}（${WD[t.getDay()]}）${p(t.getHours())}:${p(t.getMinutes())}`;
+}
+function el(tag,attrs={},kids=[]){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){
+    if(k==='class') e.className=v; else if(k==='text') e.textContent=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v);
+  }
+  for(const c of [].concat(kids)) if(c) e.append(c);
+  return e;
+}
+
+function renderWeeks(){
+  const box=$('#weeks'); box.replaceChildren();
+  weeks.forEach(w=>{
+    box.append(el('button',{class:'chip','aria-pressed':String(w.id===curWeek),onclick:()=>{curWeek=w.id;render();}},[w.label||w.id]));
+  });
+}
+
+function card(p){
+  const st=p.status||'pending';
+  const c=el('article',{class:'card s-'+st});
+  c.append(el('div',{class:'meta'},[el('span',{class:'when',text:fmt(p.date)}),el('span',{class:'pill p-'+st,text:LABEL[st]})]));
+  c.append(el('h3',{text:p.title||'(題名なし)'}));
+  const tags=el('div',{class:'aim'}); (p.tags||[]).forEach(t=>tags.append(el('span',{class:'tag',text:t}))); if((p.tags||[]).length) c.append(tags);
+  const imgs=p.images||[];
+  if(imgs.length){
+    const box=el('div',{class:'imgs'+(imgs.length===1?' one':'')});
+    imgs.forEach((u,i)=>box.append(el('img',{src:u,alt:(p.title||'')+' 画像'+(i+1),loading:'lazy'})));
+    c.append(box);
+  } else if(p.imageNote){ c.append(el('div',{class:'noimg',text:p.imageNote})); }
+  if(p.text){
+    const body=el('p',{class:'body'+(openText.has(p.id)?' open':''),text:p.text});
+    c.append(body);
+    if(p.text.split('\n').length>7||p.text.length>180){
+      c.append(el('button',{class:'more',onclick:()=>{openText.has(p.id)?openText.delete(p.id):openText.add(p.id);render();}},[openText.has(p.id)?'たたむ':'ぜんぶ読む']));
+    }
+  }
+  if(p.why) c.append(el('p',{class:'why',text:'ねらい：'+p.why}));
+  const acts=el('div',{class:'actions'});
+  [['ok','OK'],['fix','なおして'],['ng','やめる']].forEach(([k,lab])=>{
+    acts.append(el('button',{class:'btn '+k,'aria-pressed':String(st===k),disabled:db?null:'',onclick:()=>setStatus(p,st===k?'pending':k)},[lab]));
+  });
+  if(!db) acts.querySelectorAll('button').forEach(b=>b.disabled=true);
+  c.append(acts);
+  if(st==='fix'){
+    const id='memo-'+p.id;
+    const ta=el('textarea',{id,placeholder:'どこを、どう直してほしい？（例：もっと短く／画像のキャラをかえて）'});
+    ta.value= memoDraft[p.id]!==undefined ? memoDraft[p.id] : (p.memo||'');
+    ta.addEventListener('input',()=>{memoDraft[p.id]=ta.value;});
+    const saved=el('span',{class:'saved',text:p.memo?'メモ保存ずみ':'まだ保存していません'});
+    const sv=el('button',{class:'btn fix','aria-pressed':'true',onclick:()=>saveMemo(p,ta.value,saved)},['メモを保存']);
+    c.append(el('div',{class:'memo'},[el('label',{for:id,class:'saved',text:'なおしてほしいところ'}),ta,el('div',{class:'row'},[saved,sv])]));
+  }
+  return c;
+}
+
+function render(){
+  renderWeeks();
+  const w=weeks.find(x=>x.id===curWeek);
+  $('#wkTitle').textContent = w ? (w.label+(w.theme?'：'+w.theme:'')) : (posts.length?'週をえらんでください':'まだ投稿案がありません');
+  $('#wkNote').textContent = w ? (w.note||'') : 'Claudeが投稿案を作ると、ここに週ごとに並びます。';
+  const mine=posts.filter(p=>p.week===curWeek).sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
+  const n={pending:0,ok:0,fix:0,ng:0}; mine.forEach(p=>n[p.status||'pending']++);
+  $('#cPending').textContent=n.pending; $('#cOk').textContent=n.ok; $('#cFix').textContent=n.fix; $('#cNg').textContent=n.ng;
+  document.querySelectorAll('.list').forEach(list=>{
+    const ps=mine.filter(p=>p.platform===list.dataset.p);
+    list.replaceChildren(...(ps.length?ps.map(card):[el('div',{class:'empty',text:'この週の投稿案はまだありません'})]));
+  });
+}
+
+async function setStatus(p,st){
+  if(!db) return;
+  p.status=st; render();
+  try{ await db.doc('posts/'+p.id).update({status:st, decidedAt:new Date().toISOString()}); }
+  catch(e){ $('#offline').textContent='保存できませんでした。もう一度おしてください。'; $('#offline').hidden=false; }
+}
+async function saveMemo(p,text,label){
+  if(!db) return;
+  try{ await db.doc('posts/'+p.id).update({memo:text}); p.memo=text; delete memoDraft[p.id]; label.textContent='メモ保存ずみ'; }
+  catch(e){ label.textContent='保存できませんでした。もう一度おしてください。'; }
+}
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>{const on=x===t;x.setAttribute('aria-selected',String(on));x.style.background=on?`var(--${x.dataset.p})`:'';});
+  document.querySelectorAll('.col').forEach(c=>c.classList.toggle('show',c.id==='col-'+t.dataset.p));
+}));
+$('#t-x').style.background='var(--x)';
+
+render();
+(async()=>{
+  try{ db = window.claude && await window.claude.use('db'); }catch(e){ db=null; }
+  if(!db){ $('#offline').hidden=false; render(); return; }
+  db.collection('weeks').onSnapshot(s=>{
+    weeks=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.order||b.id).localeCompare(String(a.order||a.id)));
+    if(!curWeek||!weeks.find(w=>w.id===curWeek)) curWeek=weeks[0]&&weeks[0].id;
+    render();
+  },()=>{$('#offline').hidden=false;});
+  db.collection('posts').onSnapshot(s=>{ posts=s.docs.map(d=>({id:d.id,...d.data()})); render(); },()=>{$('#offline').hidden=false;});
+})();
+</script>
