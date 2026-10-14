@@ -1,0 +1,28 @@
+:root{--bg:#fffaf3;--card:#ffffff;--ink:#27274f;--sub:#5f5f86;--line:#e7e1d6;--pk:#e8457f;--sky:#1d8fd1;--mint:#1a9b6c;--lem:#fff1b8;--code:#f3efe8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17172b;--card:#21213a;--ink:#ecebff;--sub:#b3b2d6;--line:#34345a;--pk:#ff7aa8;--sky:#5cc0ff;--mint:#4fd6a3;--lem:#4a3f12;--code:#2b2b48}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Maru Gothic ProN","M PLUS Rounded 1c","BIZ UDPGothic","Meiryo",sans-serif;line-height:1.85;font-size:16px}
+main{max-width:920px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:30px;line-height:1.35;margin:8px 0 6px}
+h2{font-size:23px;margin:44px 0 12px;padding:6px 0 6px 14px;border-left:7px solid var(--pk)}
+h3{font-size:19px;margin:28px 0 8px;color:var(--sky)}
+p{margin:8px 0}
+a{color:var(--sky)}
+.lead{color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:14px 0}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 10px;margin-right:6px;color:#fff;background:var(--pk)}
+.tag.sky{background:var(--sky)}.tag.mint{background:var(--mint)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:8px 8px;vertical-align:top;text-align:left}
+th{white-space:nowrap;color:var(--sub);font-weight:700}
+td.d{white-space:nowrap;color:var(--sub);font-variant-numeric:tabular-nums}
+code{background:var(--code);border-radius:6px;padding:1px 6px;font-size:.92em}
+blockquote{margin:10px 0;padding:8px 14px;border-left:4px solid var(--sky);background:var(--code);border-radius:0 10px 10px 0}
+.fix{display:grid;grid-template-columns:5.2em 1fr;gap:4px 10px}
+.fix b{color:var(--sub);font-size:14px}
+ul{padding-left:1.3em;margin:6px 0}
+li{margin:3px 0}
+.toc a{display:block;padding:6px 0;text-decoration:none}
+.note{background:var(--lem);border-radius:12px;padding:10px 14px}
+nav.top{font-size:14px;margin-bottom:10px}
+.wrap{overflow-x:auto}

@@ -28,6 +28,9 @@
 - X は 1投稿 280（日本語は2で数える）以内
 - UIや画像は 大きさ・高さを そろえる（先生の このみ）
 
+## 開発記引継ぎノート（10/14）
+- `devlog/`（https://nochi-jpg.github.io/manabi-sns/devlog/）：各ゲームの開発の流れ・先生とのやりとり・苦労と直し方（battle.html・dragon.html・stadium.html）。投稿ネタの根拠は ここと各リポジトリの HANDOFF.md
+
 ## 推しの軸
 1. 現役の先生が 本気の学習ゲームを作っている
 2. Claudeでゲームを作るノウハウ（バズの主役）：未経験からの流れ／仕様の伝え方／HANDOFF.md／Playwright自動テスト／学校フィルター対策（Canvaサイト版・10MB）／QRでセーブ引きつぎ／バグ修正の実話。ネタは manabi-battle・manabi-stadium・manabi-dragon の HANDOFF.md から
