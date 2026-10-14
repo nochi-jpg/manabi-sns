@@ -149,6 +149,7 @@ function fmt(iso){
 function el(tag,attrs={},kids=[]){
   const e=document.createElement(tag);
   for(const [k,v] of Object.entries(attrs)){
+    if(v===null||v===undefined||v===false) continue;
     if(k==='class') e.className=v; else if(k==='text') e.textContent=v; else if(k.startsWith('on')) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v);
   }
   for(const c of [].concat(kids)) if(c) e.append(c);
@@ -184,9 +185,10 @@ function card(p){
   if(p.why) c.append(el('p',{class:'why',text:'ねらい：'+p.why}));
   const acts=el('div',{class:'actions'});
   [['ok','OK'],['fix','なおして'],['ng','やめる']].forEach(([k,lab])=>{
-    acts.append(el('button',{class:'btn '+k,'aria-pressed':String(st===k),disabled:db?null:'',onclick:()=>setStatus(p,st===k?'pending':k)},[lab]));
+    const b=el('button',{class:'btn '+k,type:'button','aria-pressed':String(st===k),onclick:()=>setStatus(p,st===k?'pending':k)},[lab]);
+    b.disabled=!db;
+    acts.append(b);
   });
-  if(!db) acts.querySelectorAll('button').forEach(b=>b.disabled=true);
   c.append(acts);
   if(st==='fix'){
     const id='memo-'+p.id;
