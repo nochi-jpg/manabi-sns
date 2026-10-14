@@ -1,0 +1,44 @@
+# まなび堂ののち SNS運用 引き継ぎメモ（10/14）
+
+## 先生（のち）について
+- 現役の公立小学校教員（担任）。返事は 短い日本語。SNSは苦手 → **先生は「確定ボタンを押す」だけ**。企画・文・画像・下書き登録は Claude
+- 名義：SNS「まなび堂ののち」、ゲームのクレジット「のち（まなび堂）」。告知は「まなび堂」、裏話は「のち」本人
+- 「まなび堂」は塾などと名前がかぶる → 「のちの個人制作（塾・教室ではありません）」と書く
+
+## アカウント・ツール
+- X：@nochi_manabido（Typefully コネクタ・social_set_id 344564）
+- Instagram：nochi_manabido（旧 nochi_sen_sei・フォロワー約300。Metricool コネクタ・blogId 7420218・無料プラン）
+- Metricool の X は 有料なので 使わない
+- 承認のしかた（最初の1か月＝〜11/14）
+  - X：Typefully に `plan_at`（予定。押すまで 出ない）で入れる → 先生が Typefully で確定
+  - Instagram：Metricool に `draft: true`（下書き）で入れる → 先生が Metricool で確定
+- ゲームの公開URL（先生向け）：https://nochi-jpg.github.io/manabato/（暗号化した1ファイル版。学校のフィルターでは開けない）
+
+## 画像
+- このリポジトリ（公開）の `posts/<週>/` に 完成画像だけ置く。Instagram は raw.githubusercontent.com のURLを Metricool に渡せば 取りこまれる
+- **X の画像**：Typefully は 画像を S3 に PUT する方式。Claude の作業場所からは typefully-user-uploads.s3.amazonaws.com が ネットワーク制限で ブロックされている（10/14）。ブロックが とけるまでは、先生が Typefully で 画像を ドラッグ（`posts/<週>/` の xN.jpg）
+- 作り方：`src/<週>/w*.html` を Playwright で 撮る（`render.py`）。フォントは manabi-battle/fonts、絵は manabi-battle-assets/images（非公開。**素材ファイルそのものは このリポジトリに 置かない**）、ゲーム画面は manabi-battle-assets/guide/capture_screens.py で 撮る
+- 大きさ：Instagram 1080×1350（4:5）、X 1600×900
+
+## 守ること
+- まなバトの 第2段階以降の モンスターは 出さない（第1段階のみ。進化はシルエット）
+- 学校名・子どもの顔・名前・端末に写った名前は 出さない。子どもの声は 特定されない形
+- 数字や効果を 盛らない。事実だけ（各ゲームの HANDOFF.md が 根拠）
+- 「Claudeで作った」と はっきり書く（前のシリーズは Canva AI）
+- X は 1投稿 280（日本語は2で数える）以内
+- UIや画像は 大きさ・高さを そろえる（先生の このみ）
+
+## 推しの軸
+1. 現役の先生が 本気の学習ゲームを作っている
+2. Claudeでゲームを作るノウハウ（バズの主役）：未経験からの流れ／仕様の伝え方／HANDOFF.md／Playwright自動テスト／学校フィルター対策（Canvaサイト版・10MB）／QRでセーブ引きつぎ／バグ修正の実話。ネタは manabi-battle・manabi-stadium・manabi-dragon の HANDOFF.md から
+3. まなびシリーズ（ドラゴン・バトル・スタジアム・新作）の 開発のようす・ちょい見せ・告知
+
+## 頻度
+- X：週3〜5本（短い文＋画像1枚）。夜20時ごろ／土日は朝
+- Instagram：週1〜2本（めくる画像・保存される資料）。キャプション冒頭「Claudeで作った自作ゲーム！ゲーム配布中！！」
+
+## 目標
+- フォロワー2000人（XとInstagram）。導入してくれる先生（クラス）を ふやす
+
+## 記録
+- 1週目（10/15〜10/21）：X ①子どもの声 10/15 20:00／②引き継ぎメモ 10/17 9:00／③バグ実話 10/19 20:00／④フィルター対策 10/21 20:00、Instagram 再開カルーセル6枚 10/16 20:30
