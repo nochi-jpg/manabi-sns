@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=DotGothic16&display=swap">
 <style>
-/* layout: 週えらび → 3つのSNSを横にならべた列（スマホはタブで1列）→ 投稿カード（判定ボタン3つ） */
+/* layout: 週えらび → 記事（note）ごとの1行：note（本編）→ X（入口）→ Instagram（保存資料）。スマホは縦に積む。下にネタ帳 */
 :root{
   --bg:#f6f4fb; --panel:#ffffff; --ink:#26244f; --sub:#6b6890; --line:#e3e0f0;
   --x:#26244f; --ig:#e8467f; --note:#16a37a; --accent:#7c5cf0;
@@ -39,15 +39,22 @@ h1 small{display:block;font-family:var(--f-dot);font-weight:400;font-size:13px;c
 .summary .theme p{margin:2px 0 0;color:var(--sub);font-size:14px}
 .counts{display:flex;gap:8px;flex-wrap:wrap}
 .cnt{display:flex;align-items:center;gap:6px;border-radius:10px;padding:6px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px;min-width:96px;justify-content:center}
-.tabs{display:none;gap:6px}
-.tab{flex:1;font:inherit;font-weight:800;font-size:14px;border:none;border-radius:12px;padding:10px 6px;background:var(--panel);color:var(--sub);cursor:pointer;box-shadow:var(--shadow)}
-.tab[aria-selected="true"]{color:var(--panel)}
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
-.col{display:flex;flex-direction:column;gap:12px;min-width:0}
-.colhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:14px;color:#fff;font-weight:800}
-.colhead span{font-family:var(--f-dot);font-weight:400;font-size:12px;opacity:.9}
-.colhead.x{background:var(--x);color:var(--panel)} .colhead.ig{background:var(--ig);color:#fff} .colhead.note{background:var(--note);color:#fff}
-.role{margin:0 2px;color:var(--sub);font-size:13px}
+.ep{display:flex;flex-direction:column;gap:10px}
+.ephead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:0 4px}
+.epno{font-family:var(--f-dot);font-size:14px;background:var(--note);color:var(--panel);border-radius:8px;padding:2px 10px;white-space:nowrap}
+.ephead h2{margin:0;font-size:19px;font-weight:800;line-height:1.4;text-wrap:balance;flex:1 1 300px;min-width:0}
+.eprow{display:grid;grid-template-columns:minmax(0,1.3fr) 28px minmax(0,1fr) 28px minmax(0,1fr);gap:0;align-items:start}
+.arrow{align-self:center;text-align:center;color:var(--sub);font-size:20px;font-weight:800}
+.lane{display:flex;flex-direction:column;gap:10px;min-width:0}
+.lanehead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 12px;border-radius:10px;font-weight:800;font-size:13px}
+.lanehead span{font-family:var(--f-dot);font-weight:400;font-size:12px;opacity:.9}
+.lanehead.x{background:var(--x);color:var(--panel)} .lanehead.ig{background:var(--ig);color:#fff} .lanehead.note{background:var(--note);color:#fff}
+.lane .empty{padding:14px;font-size:13px;box-shadow:none;border:1px dashed var(--line);background:transparent}
+.ideas{background:var(--panel);border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ideas h2{margin:0;font-size:17px;font-weight:800}
+.ideas ol{margin:0;padding-left:1.6em;display:flex;flex-direction:column;gap:6px}
+.ideas li{font-size:14px;line-height:1.5}
+.ideas li small{color:var(--sub);display:block}
 .card{background:var(--panel);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px;border:2px solid transparent;min-width:0}
 .card.s-ok{border-color:var(--ok)} .card.s-fix{border-color:var(--fix)} .card.s-ng{border-color:var(--ng);opacity:.7}
 .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
@@ -80,10 +87,9 @@ h1 small{display:block;font-family:var(--f-dot);font-weight:400;font-size:13px;c
 .foot{background:var(--panel);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);font-size:14px}
 .foot b{color:var(--accent)}
 .offline{background:var(--fixbg);color:var(--fix);border-radius:12px;padding:10px 14px;font-weight:700;font-size:14px}
-@media (max-width:860px){
-  .tabs{display:flex}
-  .cols{grid-template-columns:minmax(0,1fr)}
-  .col{display:none} .col.show{display:flex}
+@media (max-width:960px){
+  .eprow{grid-template-columns:minmax(0,1fr)}
+  .arrow{transform:rotate(90deg);padding:2px 0}
 }
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s,opacity .2s}}
 </style>
@@ -106,29 +112,12 @@ h1 small{display:block;font-family:var(--f-dot);font-weight:400;font-size:13px;c
     </div>
   </section>
 
-  <div class="tabs" role="tablist" aria-label="SNSをえらぶ">
-    <button class="tab" role="tab" id="t-x" data-p="x" aria-selected="true">X</button>
-    <button class="tab" role="tab" id="t-ig" data-p="ig" aria-selected="false">Instagram</button>
-    <button class="tab" role="tab" id="t-note" data-p="note" aria-selected="false">note</button>
-  </div>
+  <div id="eps" style="display:flex;flex-direction:column;gap:28px"></div>
 
-  <div class="cols">
-    <section class="col show" id="col-x" aria-label="X">
-      <div class="colhead x">X（入口）<span>@nochi_manabido</span></div>
-      <p class="role">短い文で、人を連れてくる。くわしくはnoteへ。</p>
-      <div class="list" data-p="x" style="display:flex;flex-direction:column;gap:12px"></div>
-    </section>
-    <section class="col" id="col-ig" aria-label="Instagram">
-      <div class="colhead ig">Instagram（保存資料）<span>nochi_manabido</span></div>
-      <p class="role">先生向けに、めくって保存される画像。</p>
-      <div class="list" data-p="ig" style="display:flex;flex-direction:column;gap:12px"></div>
-    </section>
-    <section class="col" id="col-note" aria-label="note">
-      <div class="colhead note">note（本編）<span>#まなび開発記</span></div>
-      <p class="role">開発記の連載。読みものとして残す。</p>
-      <div class="list" data-p="note" style="display:flex;flex-direction:column;gap:12px"></div>
-    </section>
-  </div>
+  <section class="ideas" aria-label="ネタ帳">
+    <h2>ネタ帳（これから書く記事）</h2>
+    <ol id="ideas"><li>読みこみ中…</li></ol>
+  </section>
 
   <div class="foot">えらび終わったら、Claudeのチャットで <b>「ボード反映」</b> と送ってください。OKの投稿を予約に入れ、「なおして」の投稿はメモどおりに直して、もう一度ここに出します。</div>
 </div>
@@ -136,7 +125,7 @@ h1 small{display:block;font-family:var(--f-dot);font-weight:400;font-size:13px;c
 <script>
 const LABEL={pending:'確認まち',ok:'OK',fix:'なおして',ng:'やめる'};
 const WD=['日','月','火','水','木','金','土'];
-let db=null, posts=[], weeks=[], curWeek=null, openText=new Set(), memoDraft={};
+let db=null, posts=[], weeks=[], episodes=[], curWeek=null, openText=new Set(), memoDraft={};
 const $=s=>document.querySelector(s);
 
 function fmt(iso){
@@ -210,10 +199,25 @@ function render(){
   const mine=posts.filter(p=>p.week===curWeek).sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
   const n={pending:0,ok:0,fix:0,ng:0}; mine.forEach(p=>n[p.status||'pending']++);
   $('#cPending').textContent=n.pending; $('#cOk').textContent=n.ok; $('#cFix').textContent=n.fix; $('#cNg').textContent=n.ng;
-  document.querySelectorAll('.list').forEach(list=>{
-    const ps=mine.filter(p=>p.platform===list.dataset.p);
-    list.replaceChildren(...(ps.length?ps.map(card):[el('div',{class:'empty',text:'この週の投稿案はまだありません'})]));
-  });
+  const box=document.getElementById('eps'); box.replaceChildren();
+  const epsW=episodes.filter(e=>e.week===curWeek).sort((a,b)=>(a.order||0)-(b.order||0));
+  const used=new Set();
+  const lane=(cls,label,sub,ps)=>el('div',{class:'lane'},[el('div',{class:'lanehead '+cls},[label,el('span',{text:sub})]),...(ps.length?ps.map(card):[el('div',{class:'empty',text:'この記事には まだありません'})])]);
+  const row=(title,no,ps)=>{
+    ps.forEach(p=>used.add(p.id));
+    const by=k=>ps.filter(p=>p.platform===k);
+    return el('section',{class:'ep'},[
+      el('div',{class:'ephead'},[no?el('span',{class:'epno',text:no}):null,el('h2',{text:title})]),
+      el('div',{class:'eprow'},[lane('note','note（本編）','#まなび開発記',by('note')),el('div',{class:'arrow','aria-hidden':'true',text:'→'}),lane('x','X（入口）','@nochi_manabido',by('x')),el('div',{class:'arrow','aria-hidden':'true',text:'→'}),lane('ig','Instagram（保存資料）','nochi_manabido',by('ig'))])]);
+  };
+  epsW.forEach(e=>box.append(row(e.title||'(題名なし)',e.no,mine.filter(p=>p.episode===e.id))));
+  const rest=mine.filter(p=>!used.has(p.id));
+  if(rest.length) box.append(row('そのほかの投稿',null,rest));
+  if(!epsW.length&&!rest.length) box.append(el('div',{class:'empty',text:'この週の投稿案はまだありません'}));
+  const ol=document.getElementById('ideas'); ol.replaceChildren();
+  const ideas=episodes.filter(e=>!e.week).sort((a,b)=>(a.order||0)-(b.order||0));
+  if(!ideas.length) ol.append(el('li',{text:'まだありません'}));
+  ideas.forEach(e=>ol.append(el('li',{},[e.title||'',e.summary?el('small',{text:e.summary}):null])));
 }
 
 async function setStatus(p,st){
@@ -228,12 +232,6 @@ async function saveMemo(p,text,label){
   catch(e){ label.textContent='保存できませんでした。もう一度おしてください。'; }
 }
 
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>{const on=x===t;x.setAttribute('aria-selected',String(on));x.style.background=on?`var(--${x.dataset.p})`:'';});
-  document.querySelectorAll('.col').forEach(c=>c.classList.toggle('show',c.id==='col-'+t.dataset.p));
-}));
-$('#t-x').style.background='var(--x)';
-
 render();
 (async()=>{
   try{ db = window.claude && await window.claude.use('db'); }catch(e){ db=null; }
@@ -243,6 +241,7 @@ render();
     if(!curWeek||!weeks.find(w=>w.id===curWeek)) curWeek=weeks[0]&&weeks[0].id;
     render();
   },()=>{$('#offline').hidden=false;});
+  db.collection('episodes').onSnapshot(s=>{ episodes=s.docs.map(d=>({id:d.id,...d.data()})); render(); },()=>{});
   db.collection('posts').onSnapshot(s=>{ posts=s.docs.map(d=>({id:d.id,...d.data()})); render(); },()=>{$('#offline').hidden=false;});
 })();
 </script>
