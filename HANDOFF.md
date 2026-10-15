@@ -6,6 +6,7 @@
 - 「まなび堂」は塾などと名前がかぶる → 「のちの個人制作（塾・教室ではありません）」と書く
 
 ## アカウント・ツール
+- **表示名（10/15〜）**：X は「のち先生＠まなび堂｜教員×Claudeで学習ゲーム」。note・Instagram も これに そろえる予定。画像のフッターや文中の名乗りは「のち先生（まなび堂）」に（前の「まなび堂ののち」は 使わない）
 - X：@nochi_manabido（Typefully コネクタ・social_set_id 344564）
 - Instagram：nochi_manabido（旧 nochi_sen_sei・フォロワー約300。Metricool コネクタ・blogId 7420218・無料プラン）
 - Metricool の X は 有料なので 使わない
