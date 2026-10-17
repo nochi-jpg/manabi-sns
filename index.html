@@ -1,1 +1,132 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=devlog/"><title>開発記引継ぎノート</title></head><body><a href="devlog/">開発記引継ぎノート</a></body></html>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>まなび堂 ゲームポータル</title>
+<meta name="description" content="小学校の先生がClaudeといっしょに作った学習ゲーム「まなびシリーズ」の入口。まなびドラゴン・まなびバトル・まなびスタジアム。">
+<meta property="og:title" content="まなび堂 ゲームポータル">
+<meta property="og:description" content="小学校の先生がClaudeといっしょに作った学習ゲーム「まなびシリーズ」">
+<meta property="og:image" content="https://nochi-jpg.github.io/manabi-sns/img/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/m_all.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap">
+<style>
+/* layout: 1画面に収める。上＝名前、まん中＝ゲームを1本ずつ切りかえるカード（タブと ◀▶）、下＝SNSボタン3つ。スクロールなし */
+:root{
+  --bg:#fff6e9; --panel:#ffffff; --ink:#2a2a5a; --sub:#6a6890; --line:#ece6f5;
+  --pk:#ff5c9d; --sky:#2bb3f0; --mint:#22b07f; --lem:#ffd23f; --pur:#8b5cf6;
+  --dot:rgba(255,92,157,.10);
+  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-dot:"DotGothic16","M PLUS Rounded 1c",monospace;
+  --shadow:0 4px 0 rgba(42,42,90,.10),0 10px 24px rgba(42,42,90,.12);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#17163a; --panel:#24224f; --ink:#f1efff; --sub:#b4b1da; --line:#36346a; --dot:rgba(255,122,168,.10);
+  --shadow:0 4px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.3); color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg) radial-gradient(var(--dot) 7px,transparent 8px) 0 0/34px 34px;color:var(--ink);font-family:var(--f-body);
+  padding:max(14px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  display:flex;justify-content:center}
+.app{width:100%;max-width:460px;height:100%;display:grid;grid-template-rows:auto auto 1fr auto auto;gap:12px}
+header{text-align:center}
+header .kick{display:inline-block;font-family:var(--f-dot);font-size:13px;letter-spacing:.12em;background:var(--ink);color:var(--lem);border-radius:8px;padding:3px 12px}
+header h1{margin:8px 0 0;font-size:22px;font-weight:800;line-height:1.3}
+header p{margin:4px 0 0;font-size:13px;color:var(--sub)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tab{font:inherit;font-weight:800;font-size:14px;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{color:#fff;border-color:transparent}
+.tab:focus-visible,.nav:focus-visible,.go:focus-visible,.sns a:focus-visible{outline:3px solid var(--pur);outline-offset:2px}
+.stage{position:relative;min-height:0;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:6px}
+.nav{font:inherit;font-size:18px;font-weight:800;width:40px;height:40px;border-radius:50%;border:none;background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+.card{height:100%;min-height:0;background:var(--panel);border-radius:22px;box-shadow:var(--shadow);border:3px solid var(--c);padding:14px 14px 16px;display:grid;grid-template-rows:auto 1fr auto auto auto;gap:10px;text-align:center;overflow:hidden}
+.badge{justify-self:center;font-size:12px;font-weight:800;color:#fff;background:var(--c);border-radius:999px;padding:3px 12px}
+.art{min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.art .logo{max-width:100%;max-height:60%;object-fit:contain;filter:drop-shadow(0 6px 0 rgba(42,42,90,.12))}
+.art .mons{display:flex;justify-content:center;gap:4px;height:28%;min-height:52px}
+.art .mons img{height:100%;width:auto}
+.card h2{margin:0;font-size:18px;font-weight:800}
+.card .desc{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink)}
+.go{display:flex;align-items:center;justify-content:center;height:50px;border-radius:14px;background:var(--c);color:#fff;font-weight:800;font-size:17px;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.dots{display:flex;justify-content:center;gap:8px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--ink)}
+.sns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sns a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:56px;border-radius:14px;background:var(--panel);color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;box-shadow:var(--shadow)}
+.sns a small{font-size:11px;font-weight:500;color:var(--sub)}
+footer{font-size:11px;line-height:1.5;color:var(--sub);text-align:center}
+[hidden]{display:none!important}
+@media (max-height:640px){header p{display:none}.card .desc{font-size:12.5px}.sns a{height:48px}}
+@media (prefers-reduced-motion:no-preference){.card{animation:pop .25s ease}@keyframes pop{from{transform:scale(.97);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <span class="kick">MANABI SERIES</span>
+    <h1>のち先生＠まなび堂</h1>
+    <p>小学校の先生が Claude といっしょに作った 学習ゲーム</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="ゲームをえらぶ">
+    <button class="tab" role="tab" id="t0" aria-controls="card" aria-selected="false">ドラゴン</button>
+    <button class="tab" role="tab" id="t1" aria-controls="card" aria-selected="true">バトル</button>
+    <button class="tab" role="tab" id="t2" aria-controls="card" aria-selected="false">スタジアム</button>
+  </div>
+
+  <div class="stage">
+    <button class="nav" id="prev" aria-label="前のゲーム">◀</button>
+    <article class="card" id="card" role="tabpanel" aria-live="polite"></article>
+    <button class="nav" id="next" aria-label="次のゲーム">▶</button>
+  </div>
+
+  <nav class="sns" aria-label="SNS">
+    <a href="https://note.com/nochi_manabido" target="_blank" rel="noopener">note<small>開発記</small></a>
+    <a href="https://x.com/nochi_manabido" target="_blank" rel="noopener">X<small>@nochi_manabido</small></a>
+    <a href="https://www.instagram.com/nochi_manabido/" target="_blank" rel="noopener">Instagram<small>nochi_manabido</small></a>
+  </nav>
+
+  <footer>まなび堂は、のちの個人制作です（塾・教室ではありません）<br>学校の端末では、フィルターで開けないことがあります</footer>
+</div>
+
+<script>
+const GAMES=[
+ {name:'まなびドラゴン',no:'第1作',color:'var(--mint)',logo:'img/logo_dragon.webp',mons:[],
+  for:'小学4〜6年',desc:'勉強して竜を育て、ラスボスに挑む。学習×ローグライト。6教科1184問、1日3回まで。',
+  url:'https://nochi-jpg.github.io/manabi-dragon/',btn:'あそぶ'},
+ {name:'まなびバトル',no:'第2作・いちおし',color:'var(--pk)',logo:'img/logo_battle.webp',mons:['m_kokugo','m_all','m_rika'],
+  for:'小学4〜6年',desc:'5教科2500問に答えてモンスターを育て、ボスと戦う。友だちとQRで1台対戦。キャラはぜんぶ手描き。',
+  url:'https://nochi-jpg.github.io/manabato/',btn:'あそぶ'},
+ {name:'まなびスタジアム',no:'第3作・先生用',color:'var(--pur)',logo:'img/logo_stadium.webp',mons:['m_sansu','m_eigo','m_shakai'],
+  for:'先生用（電子黒板）',desc:'子どもの まなびバトルのQRを読みこんで、大画面で3Dの対戦を上映。クラス大会に。',
+  url:'https://nochi-jpg.github.io/manasuta/',btn:'ひらく'}
+];
+let cur=1;
+const card=document.getElementById('card');
+function show(i){
+  cur=(i+GAMES.length)%GAMES.length; const g=GAMES[cur];
+  card.style.setProperty('--c',g.color);
+  card.innerHTML='';
+  const mk=(t,c,txt)=>{const e=document.createElement(t); if(c) e.className=c; if(txt!=null) e.textContent=txt; return e};
+  const badge=mk('span','badge',g.no+'｜'+g.for);
+  const art=mk('div','art'); const lg=mk('img','logo'); lg.src=g.logo; lg.alt=g.name+' ロゴ'; art.append(lg);
+  if(g.mons.length){const m=mk('div','mons'); g.mons.forEach(k=>{const im=mk('img'); im.src='img/'+k+'.webp'; im.alt=''; m.append(im)}); art.append(m)}
+  const h=mk('h2',null,g.name); const d=mk('p','desc',g.desc);
+  const a=mk('a','go',g.btn+' ▶'); a.href=g.url; a.target='_blank'; a.rel='noopener';
+  const dots=mk('div','dots'); GAMES.forEach((_,k)=>dots.append(mk('i',k===cur?'on':'')));
+  card.append(badge,art,h,d,a,dots);
+  document.querySelectorAll('.tab').forEach((t,k)=>{const on=k===cur;t.setAttribute('aria-selected',String(on));t.style.background=on?GAMES[k].color:'';});
+  card.style.animation='none'; void card.offsetWidth; card.style.animation='';
+}
+document.querySelectorAll('.tab').forEach((t,k)=>t.addEventListener('click',()=>show(k)));
+document.getElementById('prev').addEventListener('click',()=>show(cur-1));
+document.getElementById('next').addEventListener('click',()=>show(cur+1));
+let sx=null; card.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+card.addEventListener('touchend',e=>{if(sx==null)return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) show(cur+(dx<0?1:-1)); sx=null});
+const h=location.hash.slice(1); show(h==='dragon'?0:h==='stadium'?2:1);
+</script>
+</body>
+</html>
