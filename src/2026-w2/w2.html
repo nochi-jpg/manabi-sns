@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:R;font-weight:400;src:url(F/MPLUSRounded1c-Regular.woff)}
+@font-face{font-family:R;font-weight:700;src:url(F/MPLUSRounded1c-Bold.woff)}
+@font-face{font-family:R;font-weight:900;src:url(F/MPLUSRounded1c-ExtraBold.woff)}
+@font-face{font-family:Dot;src:url(F/DotGothic16-Regular.woff)}
+:root{--pk:#ff5c9d;--pk2:#ffd1e3;--sky:#2bb3f0;--sky2:#d4f1ff;--lem:#ffd23f;--lem2:#fff3c4;--mint:#22c58b;--mint2:#d3f8e8;--pur:#8b5cf6;--pur2:#ece4ff;--ink:#2a2a5a;--cream:#fffaf0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#777;font-family:R,sans-serif;color:var(--ink)}
+img{display:block}
+.pg{position:relative;overflow:hidden;background:var(--cream);margin:0 0 30px}
+.ig{width:1080px;height:1350px}
+.x{width:1600px;height:900px}
+.dots{background-image:radial-gradient(rgba(255,92,157,.13) 9px,transparent 10px);background-size:46px 46px}
+.dots2{background-image:radial-gradient(rgba(43,179,240,.14) 8px,transparent 9px);background-size:40px 40px}
+.sun{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 62%,rgba(255,255,255,.6) 0 7deg,transparent 7deg 15deg)}
+.warm{background:linear-gradient(#ffe3ef,#fff6d6)}
+.shot{border-radius:20px;border:7px solid #fff;box-shadow:0 10px 0 rgba(42,42,90,.13),0 14px 30px rgba(42,42,90,.22);width:100%}
+.tape{position:absolute;width:130px;height:34px;background:rgba(255,210,63,.8);top:-16px;left:50%;transform:translateX(-50%) rotate(-4deg);border-radius:4px;z-index:2}
+.tape.pk{background:rgba(255,92,157,.6)}.tape.sk{background:rgba(43,179,240,.55)}
+.wrap{position:relative}
+.no{display:inline-block;white-space:nowrap;font-family:Dot;font-size:30px;background:var(--ink);color:#fff;border-radius:14px;padding:8px 18px;letter-spacing:2px}
+.kick{display:inline-block;font-family:Dot;font-size:30px;background:var(--ink);color:var(--lem);padding:8px 26px;border-radius:12px;letter-spacing:3px}
+h2{font-size:66px;font-weight:900;letter-spacing:1px;line-height:1.2}
+em,.em{font-style:normal;color:var(--pk)}
+.lead{font-size:31px;font-weight:700;line-height:1.65}
+.mark{background:linear-gradient(transparent 58%,var(--lem) 58%);padding:0 4px}
+.markp{background:linear-gradient(transparent 58%,var(--pk2) 58%);padding:0 4px}
+.card{background:#fff;border-radius:28px;box-shadow:0 8px 0 rgba(42,42,90,.10),0 12px 28px rgba(42,42,90,.14)}
+.bub{background:#fff;border:5px solid var(--ink);border-radius:28px;padding:18px 26px;font-size:30px;font-weight:700;line-height:1.5}
+.foot{position:absolute;bottom:0;left:0;right:0;height:78px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 48px;font-size:25px;font-weight:700}
+.foot b{font-family:Dot;font-size:28px;color:var(--lem);font-weight:400}
+.mon{filter:drop-shadow(0 10px 0 rgba(42,42,90,.13))}
+.sil{filter:brightness(0) opacity(.85)}
+.pill{display:inline-block;border-radius:999px;padding:6px 22px;font-weight:900;color:#fff;font-size:28px}
+.row{display:flex;gap:24px;align-items:center}
+.step{display:flex;gap:22px;align-items:center;padding:24px 28px}
+.step .n{flex:0 0 84px;height:84px;border-radius:50%;color:#fff;font-family:Dot;font-size:40px;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:36px;font-weight:900;line-height:1.3}
+.step p{font-size:26px;font-weight:700;line-height:1.5;margin-top:4px}
+</style></head><body>
+<body>
+
+<!-- ============ X4 スタミナの数字はBOTで決めた（10/22・画像あり） ============ -->
+<div class="pg x" id="x4" style="background:linear-gradient(#eaf8ff,#fffaf0)">
+  <div style="position:absolute;left:64px;top:56px;width:640px">
+    <span class="kick">#まなび開発記 #3</span>
+    <div style="font-size:58px;font-weight:900;line-height:1.35;margin-top:28px">スタミナの数字は、<br><em>自動プレイで</em><br>決めました。</div>
+    <div style="font-size:28px;font-weight:700;line-height:1.65;margin-top:22px">毎日 ダンジョン2回＋復習・<br>正答率80%の「子ども役」を<br>Claudeが作って、何日も遊ばせた。</div>
+  </div>
+  <div class="wrap" style="position:absolute;right:56px;top:70px;width:800px"><div class="tape sk"></div><img class="shot" src="S/stamina_help.png"></div>
+  <div style="position:absolute;right:56px;top:560px;width:800px;display:flex;gap:18px">
+    <div class="card" style="flex:1;padding:18px 22px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6b6890">毎朝5時</div><div style="font-size:40px;font-weight:900">+100</div></div>
+    <div class="card" style="flex:1;padding:18px 22px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6b6890">ダンジョン1回</div><div style="font-size:40px;font-weight:900">50</div></div>
+    <div class="card" style="flex:1;padding:18px 22px;text-align:center"><div style="font-size:22px;font-weight:900;color:#6b6890">ためられる</div><div style="font-size:40px;font-weight:900">2000</div></div>
+  </div>
+  <img class="mon" src="A/images/player/sansu_cute_1.png" style="position:absolute;left:470px;top:560px;width:220px">
+  <div class="foot"><span>のち先生（まなび堂）｜現役の小学校教員が Claudeで作った学習ゲーム</span><b>@nochi_manabido</b></div>
+</div>
+
+<!-- ============ IG 1 表紙 ============ -->
+<div class="pg ig warm" id="ig1">
+  <div class="sun"></div>
+  <div style="position:absolute;top:56px;left:0;right:0;text-align:center"><span class="kick">#まなび開発記 #3</span></div>
+  <div style="position:absolute;top:150px;left:0;right:0;text-align:center">
+    <div style="font-size:42px;font-weight:900;color:#6b6890">家庭学習で使う 学習ゲーム</div>
+    <div style="font-size:82px;font-weight:900;line-height:1.3;margin-top:16px"><em>やりすぎない</em><br>しかけの作り方</div>
+    <div style="font-size:34px;font-weight:700;margin-top:24px">回数制限と スタミナの 決め方</div>
+  </div>
+  <img class="mon" src="A/images/player/all_cute_1.png" style="position:absolute;left:330px;top:640px;width:420px">
+  <img class="mon" src="A/images/player/shakai_cute_1.png" style="position:absolute;left:50px;top:800px;width:250px">
+  <img class="mon" src="A/images/player/eigo_cool_1.png" style="position:absolute;right:50px;top:790px;width:250px">
+  <div style="position:absolute;left:0;right:0;top:1150px;text-align:center"><span class="bub">ほかの先生も まねできるように、数字を ぜんぶ書きます</span></div>
+  <div class="foot"><span>▶ ゲームは プロフィールのリンクから 遊べます</span><b>1 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 2 前作 ============ -->
+<div class="pg ig dots" id="ig2">
+  <div style="padding:64px 56px 0"><span class="no">01 前作 まなびドラゴン</span>
+    <h2 style="margin-top:20px">まずは<br><em>回数と時間</em>で しばった</h2>
+    <p class="lead" style="margin-top:16px">楽しすぎて、配るのを ためらったゲーム。<br>「やめどき」を ゲームの中に 入れました。</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:22px;margin:44px 56px 0">
+    <div class="card step"><div class="n" style="background:var(--pk)">1</div><div><h3>1日3回まで</h3><p>はじめた時点で 1回。ためられない</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--sky)">2</div><div><h3>遊べるのは 朝8時〜夜8時</h3><p>夜は「竜は ねむっている…」</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--lem);color:var(--ink)">3</div><div><h3>コンティニューにも 代償</h3><p>使うと、その日の 1回分が へる</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--mint)">4</div><div><h3>先生だけの 回数追加</h3><p>先生用の パスワードで足せる。翌朝8時に 3回にもどる</p></div></div>
+  </div>
+  <div class="foot"><span>のち先生（まなび堂）｜Claudeで作った学習ゲーム</span><b>2 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 3 今作スタミナ ============ -->
+<div class="pg ig dots2" id="ig3">
+  <div style="padding:64px 56px 0"><span class="no">02 今作 まなびバトル</span>
+    <h2 style="margin-top:20px">回数ではなく<br><em>スタミナ</em>に</h2>
+    <p class="lead" style="margin-top:16px">ゲームの中で、子どもにも こう説明しています。</p>
+  </div>
+  <div class="wrap" style="margin:40px 56px 0"><div class="tape sk"></div><img class="shot" src="S/stamina_help.png"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin:40px 56px 0">
+    <div class="card" style="padding:22px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6b6890">毎朝5時に</div><div style="font-size:52px;font-weight:900">+100</div></div>
+    <div class="card" style="padding:22px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6b6890">ダンジョン1回</div><div style="font-size:52px;font-weight:900">50</div></div>
+    <div class="card" style="padding:22px;text-align:center"><div style="font-size:24px;font-weight:900;color:#6b6890">つまり</div><div style="font-size:52px;font-weight:900;color:var(--pk)">1日2回</div></div>
+  </div>
+  <div class="foot"><span>のち先生（まなび堂）｜Claudeで作った学習ゲーム</span><b>3 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 4 損しない ============ -->
+<div class="pg ig" id="ig4" style="background:linear-gradient(#f0fff8,#fffaf0)">
+  <div style="padding:64px 56px 0"><span class="no">03 こだわり</span>
+    <h2 style="margin-top:20px">休んでも、<br><em>損しない</em>ように</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:26px;margin:50px 56px 0">
+    <div class="card" style="padding:34px 38px"><div style="font-size:30px;font-weight:900;color:var(--mint)">ためておける</div><div style="font-size:44px;font-weight:900;margin-top:8px">スタミナは 2000まで</div><p class="lead" style="margin-top:10px">遊べない日が あっても、<br>次の日に 取りもどせる。</p></div>
+    <div class="card" style="padding:34px 38px"><div style="font-size:30px;font-weight:900;color:var(--sky)">まちがいこそ 得をする</div><div style="font-size:44px;font-weight:900;margin-top:8px">復習は スタミナなし</div><p class="lead" style="margin-top:10px">まちがえた問題の 復習ダンジョンは、<br>新しい問題と 同じだけ 強くなれる。</p></div>
+  </div>
+  <img class="mon" src="A/images/player/rika_cute_1.png" style="position:absolute;right:60px;top:70px;width:240px">
+  <div class="foot"><span>のち先生（まなび堂）｜Claudeで作った学習ゲーム</span><b>4 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 5 夢中になりすぎたら ============ -->
+<div class="pg ig dots" id="ig5">
+  <div style="padding:64px 56px 0"><span class="no">04 実話</span>
+    <h2 style="margin-top:20px">子どもが 夢中に<br>なりすぎた日、<em>短くした</em></h2>
+    <p class="lead" style="margin-top:16px">スタミナを 使わない「無限の塔」。<br>はじめは 1日30分 でした。</p>
+  </div>
+  <div class="row" style="justify-content:center;margin-top:60px;gap:40px">
+    <div class="card" style="padding:36px 44px;text-align:center"><div style="font-size:28px;font-weight:900;color:#6b6890">はじめ</div><div style="font-size:84px;font-weight:900">30分</div></div>
+    <div style="font-size:80px;font-weight:900;color:var(--pk)">→</div>
+    <div class="card" style="padding:36px 44px;text-align:center;border:6px solid var(--pk)"><div style="font-size:28px;font-weight:900;color:#6b6890">いま</div><div style="font-size:84px;font-weight:900;color:var(--pk)">10分</div></div>
+  </div>
+  <div class="card" style="margin:60px 56px 0;padding:30px 36px"><p class="lead">ほかにも：塔は 1日1回の入場券／ガチャは 1日50回まで。<br><span class="mark">子どもの様子を見て、数字を なおしていく。</span></p></div>
+  <div class="foot"><span>のち先生（まなび堂）｜Claudeで作った学習ゲーム</span><b>5 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 6 BOTで決める ============ -->
+<div class="pg ig warm" id="ig6">
+  <div style="padding:64px 56px 0"><span class="no">05 数字の決め方</span>
+    <h2 style="margin-top:20px">数字は <em>自動プレイ</em>で<br>たしかめる</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:22px;margin:44px 56px 0">
+    <div class="card step"><div class="n" style="background:var(--sky)">1</div><div><h3>「子ども役」を 作る</h3><p>毎日 ダンジョン2回＋復習・正答率80%</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--pk)">2</div><div><h3>何日分も 自動で 遊ばせる</h3><p>1日に どれだけ 育つかを はかる</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--mint)">3</div><div><h3>ごほうびの 日を 決める</h3><p>モンスターの進化が 7日目・21日目に 来るように</p></div></div>
+  </div>
+  <div style="position:absolute;left:56px;right:56px;top:1040px;text-align:center"><span class="bub">保存して、ゲームづくりの 参考にしてね📌</span></div>
+  <div class="foot"><span>▶ ゲームは プロフィールのリンクから 遊べます</span><b>6 / 6</b></div>
+</div>
+
+</body></html>
