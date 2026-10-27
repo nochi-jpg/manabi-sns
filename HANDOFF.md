@@ -14,7 +14,7 @@
   - X：Typefully に `plan_at`（予定。押すまで 出ない）で入れる → 先生が Typefully で確定
   - Instagram：Metricool に `draft: true`（下書き）で入れる → 先生が Metricool で確定
 - ゲームの公開URL（先生向け）：https://nochi-jpg.github.io/manabato/（暗号化した1ファイル版。学校のフィルターでは開けない）
-- **ポータル（10/17〜・SNSのプロフィールにはこれを貼る）**：https://nochi-jpg.github.io/manabi-sns/ （このリポジトリの index.html。3作をタブと◀▶で1本ずつ切りかえ、下に note・X・Instagram。スクロールなしの1画面。画像は img/。#dragon #stadium で最初に出すゲームを変えられる）。開発記は https://nochi-jpg.github.io/manabi-sns/devlog/ のまま
+- **ポータル（10/17〜・SNSのプロフィールにはこれを貼る）**：https://nochi-jpg.github.io/manabi-sns/ （このリポジトリの index.html。5作（ドラゴン・バトル・スタジアム・ヒストリア・ライフ）をタブと◀▶で1本ずつ切りかえ、下に note・X・Instagram。スクロールなしの1画面。画像は img/。#dragon #battle #stadium #historia #life で最初に出すゲームを変えられる。新作が出たら index.html の GAMES とタブに足す）。開発記は https://nochi-jpg.github.io/manabi-sns/devlog/ のまま
 
 ## 画像
 - このリポジトリ（公開）の `posts/<週>/` に 完成画像だけ置く。Instagram は raw.githubusercontent.com のURLを Metricool に渡せば 取りこまれる
