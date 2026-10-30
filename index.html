@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>まなび堂 ゲームポータル</title>
-<meta name="description" content="小学校の先生がClaudeといっしょに作った学習ゲーム「まなびシリーズ」の入口。まなびドラゴン・まなびバトル・まなびスタジアム。">
-<meta property="og:title" content="まなび堂 ゲームポータル">
-<meta property="og:description" content="小学校の先生がClaudeといっしょに作った学習ゲーム「まなびシリーズ」">
+<title>教育アプリポータル</title>
+<meta name="description" content="小学校の先生がClaudeといっしょに作った学習ゲーム・学習アプリの入口。制作：K.nomura">
+<meta property="og:title" content="教育アプリポータル">
+<meta property="og:description" content="小学校の先生がClaudeといっしょに作った学習ゲーム・学習アプリ（制作：K.nomura）">
 <meta property="og:image" content="https://nochi-jpg.github.io/manabi-sns/img/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/m_all.webp">
@@ -14,10 +14,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap">
 <style>
-/* layout: 1画面に収める。上＝名前、まん中＝ゲーム5本を1本ずつ切りかえるカード（タブ5つと ◀▶）、下＝SNSボタン3つ。スクロールなし */
+/* layout: 1画面に収める。上＝名前、まん中＝アプリ8本を1本ずつ切りかえるカード（タブ4×2段と ◀▶）、下＝制作者。スクロールなし */
 :root{
   --bg:#fff6e9; --panel:#ffffff; --ink:#2a2a5a; --sub:#6a6890; --line:#ece6f5;
-  --pk:#ff5c9d; --sky:#1f9fdc; --mint:#22b07f; --lem:#ffd23f; --pur:#8b5cf6; --shu:#c8553d;
+  --pk:#ff5c9d; --sky:#1f9fdc; --mint:#22b07f; --lem:#ffd23f; --pur:#8b5cf6; --shu:#c8553d; --ora:#e8862a; --teal:#1b9a9a; --navy:#3d5bd9;
   --dot:rgba(255,92,157,.10);
   --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
   --f-dot:"DotGothic16","M PLUS Rounded 1c",monospace;
@@ -31,13 +31,13 @@ html,body{height:100%;margin:0}
 body{background:var(--bg) radial-gradient(var(--dot) 7px,transparent 8px) 0 0/34px 34px;color:var(--ink);font-family:var(--f-body);
   padding:max(14px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
   display:flex;justify-content:center}
-.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-rows:auto auto 1fr auto auto;gap:12px}
+.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px}
 header{text-align:center}
 header .kick{display:inline-block;font-family:var(--f-dot);font-size:13px;letter-spacing:.12em;background:var(--ink);color:var(--lem);border-radius:8px;padding:3px 12px}
 header h1{margin:8px 0 0;font-size:22px;font-weight:800;line-height:1.3}
 header p{margin:4px 0 0;font-size:13px;color:var(--sub)}
-.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:-.02em;padding:0 2px;white-space:nowrap;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:-.02em;padding:0 2px;white-space:nowrap;height:40px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
 .tab[aria-selected="true"]{color:#fff;border-color:transparent}
 .tab:focus-visible,.nav:focus-visible,.go:focus-visible,.sns a:focus-visible{outline:3px solid var(--pur);outline-offset:2px}
 .stage{position:relative;min-height:0;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:6px}
@@ -46,10 +46,13 @@ header p{margin:4px 0 0;font-size:13px;color:var(--sub)}
 .badge{justify-self:center;font-size:12px;font-weight:800;color:#fff;background:var(--c);border-radius:999px;padding:3px 12px}
 .art{min-height:0;display:grid;grid-template-rows:minmax(0,1fr) minmax(0,.45fr);gap:6px;align-items:center}
 .art .logo{display:block;width:100%;height:100%;min-height:0;object-fit:contain;filter:drop-shadow(0 6px 0 rgba(42,42,90,.12))}
+.art .ttl{display:grid;place-items:center;height:100%;overflow:hidden;min-height:0;border-radius:16px;background:var(--c);color:#fff;font-size:26px;font-weight:800;line-height:1.3;padding:8px;text-shadow:0 2px 0 rgba(0,0,0,.15)}
+.art .ttl span{display:block}
+.art .ttl small{display:block;font-size:15px;opacity:.95;margin-top:2px}
 .art .logo.paper{background:#fff;border-radius:14px;padding:8px;filter:none}
 .art .mons{display:flex;justify-content:center;gap:4px;height:100%;min-height:0;max-height:110px}
 .art .mons img{height:100%;width:auto;min-height:0;object-fit:contain}
-.card h2{margin:0;font-size:18px;font-weight:800}
+.card h2{margin:0;font-size:18px;font-weight:800;text-wrap:balance;word-break:auto-phrase}
 .card .desc{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);text-wrap:pretty;word-break:auto-phrase}
 .go{display:flex;align-items:center;justify-content:center;height:50px;border-radius:14px;background:var(--c);color:#fff;font-weight:800;font-size:17px;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.15)}
 .dots{display:flex;justify-content:center;gap:8px}
@@ -60,39 +63,37 @@ header p{margin:4px 0 0;font-size:13px;color:var(--sub)}
 .sns a small{font-size:11px;font-weight:500;color:var(--sub)}
 footer{font-size:11px;line-height:1.5;color:var(--sub);text-align:center}
 [hidden]{display:none!important}
-@media (max-height:640px){header p{display:none}.card .desc{font-size:12.5px}.sns a{height:48px}}
+@media (max-height:640px){header p{display:none}.card .desc{font-size:12.5px}.art .ttl{font-size:18px;line-height:1.15;padding:4px}.art .ttl small{font-size:11px;margin-top:0}}
 @media (prefers-reduced-motion:no-preference){.card{animation:pop .25s ease}@keyframes pop{from{transform:scale(.97);opacity:.6}to{transform:none;opacity:1}}}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <span class="kick">MANABI SERIES</span>
-    <h1>のち先生＠まなび堂</h1>
-    <p>小学校の先生が Claude といっしょに作った 学習ゲーム</p>
+    <span class="kick">EDUCATION APPS</span>
+    <h1>教育アプリポータル</h1>
+    <p>小学校の先生が Claude と作った 学習ゲーム・アプリ</p>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="ゲームをえらぶ">
+  <div class="tabs" role="tablist" aria-label="アプリをえらぶ">
     <button class="tab" role="tab" id="t0" aria-controls="card" aria-selected="false">ドラゴン</button>
     <button class="tab" role="tab" id="t1" aria-controls="card" aria-selected="true">バトル</button>
     <button class="tab" role="tab" id="t2" aria-controls="card" aria-selected="false">スタジアム</button>
     <button class="tab" role="tab" id="t3" aria-controls="card" aria-selected="false">ヒストリア</button>
     <button class="tab" role="tab" id="t4" aria-controls="card" aria-selected="false">ライフ</button>
+    <button class="tab" role="tab" id="t5" aria-controls="card" aria-selected="false">計算</button>
+    <button class="tab" role="tab" id="t6" aria-controls="card" aria-selected="false">ひっ算</button>
+    <button class="tab" role="tab" id="t7" aria-controls="card" aria-selected="false">小数ひっ算</button>
   </div>
 
   <div class="stage">
-    <button class="nav" id="prev" aria-label="前のゲーム">◀</button>
+    <button class="nav" id="prev" aria-label="前のアプリ">◀</button>
     <article class="card" id="card" role="tabpanel" aria-live="polite"></article>
-    <button class="nav" id="next" aria-label="次のゲーム">▶</button>
+    <button class="nav" id="next" aria-label="次のアプリ">▶</button>
   </div>
 
-  <nav class="sns" aria-label="SNS">
-    <a href="https://note.com/nochi_manabido" target="_blank" rel="noopener">note<small>開発記</small></a>
-    <a href="https://x.com/nochi_manabido" target="_blank" rel="noopener">X<small>@nochi_manabido</small></a>
-    <a href="https://www.instagram.com/nochi_manabido/" target="_blank" rel="noopener">Instagram<small>nochi_manabido</small></a>
-  </nav>
 
-  <footer>まなび堂は、のちの個人制作です（塾・教室ではありません）<br>学校の端末では、フィルターで開けないことがあります</footer>
+  <footer>制作：K.nomura（個人制作・塾や教室ではありません）<br>学校の端末では、フィルターで開けないことがあります</footer>
 </div>
 
 <script>
@@ -111,7 +112,16 @@ const GAMES=[
   url:'https://nochi-jpg.github.io/manabi-historia/',btn:'あそぶ'},
  {name:'まなびライフ',no:'第5作',color:'var(--sky)',logo:'img/life_title.webp',paper:true,mons:[],
   for:'小学5・6年・キャリア教育',desc:'日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。',
-  url:'https://nochi-jpg.github.io/manabi-life/play/',btn:'あそぶ'}
+  url:'https://nochi-jpg.github.io/manabi-life/play/',btn:'あそぶ'},
+ {name:'計算おたすけ君',no:'学習アプリ',color:'var(--ora)',ttl:'計算<br>おたすけ君',mons:['otasuke_chara'],
+  for:'小学1年・計算',desc:'ブロック・数の線・さくらんぼで、くり上がり・くり下がりの考え方をおたすけ。問題に挑戦するモードもあり。',
+  url:'https://nochi-jpg.github.io/otasuke-keisan/',btn:'つかう'},
+ {name:'ひっ算おたすけ君',no:'学習アプリ',color:'var(--teal)',ttl:'ひっ算<br>おたすけ君',mons:['otasuke_chara'],
+  for:'筆算',desc:'たし算・ひき算・かけ算・わり算の筆算を、答えは言わずに1段ずつおたすけ。さくらんぼ法や九九の表も見られる。',
+  url:'https://daizou.my.canva.site/otasuke',btn:'つかう'},
+ {name:'ひっ算おたすけ君（小数点あり）',no:'学習アプリ',color:'var(--navy)',ttl:'ひっ算<br>おたすけ君<small>小数点あり版</small>',mons:['otasuke_chara'],
+  for:'小数の筆算',desc:'ひっ算おたすけ君の、小数点がある計算に使える版。',
+  url:'https://daizou.my.canva.site/otasukeshosu',btn:'つかう'}
 ];
 let cur=1;
 const card=document.getElementById('card');
@@ -121,7 +131,7 @@ function show(i){
   card.innerHTML='';
   const mk=(t,c,txt)=>{const e=document.createElement(t); if(c) e.className=c; if(txt!=null) e.textContent=txt; return e};
   const badge=mk('span','badge',g.no+'｜'+g.for);
-  const art=mk('div','art'); const lg=mk('img',g.paper?'logo paper':'logo'); lg.src=g.logo; lg.alt=g.name+' ロゴ'; art.append(lg);
+  const art=mk('div','art'); if(g.logo){const lg=mk('img',g.paper?'logo paper':'logo'); lg.src=g.logo; lg.alt=g.name+' ロゴ'; art.append(lg);} else {const t=mk('div','ttl'); t.innerHTML='<span>'+g.ttl+'</span>'; art.append(t);}
   if(!g.mons.length) art.style.gridTemplateRows='minmax(0,1fr)';
   if(g.mons.length){const m=mk('div','mons'); g.mons.forEach(k=>{const im=mk('img'); im.src='img/'+k+'.webp'; im.alt=''; m.append(im)}); art.append(m)}
   const h=mk('h2',null,g.name); const d=mk('p','desc',g.desc);
@@ -136,7 +146,7 @@ document.getElementById('prev').addEventListener('click',()=>show(cur-1));
 document.getElementById('next').addEventListener('click',()=>show(cur+1));
 let sx=null; card.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
 card.addEventListener('touchend',e=>{if(sx==null)return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) show(cur+(dx<0?1:-1)); sx=null});
-const h=location.hash.slice(1); const HI={dragon:0,battle:1,stadium:2,historia:3,life:4}; show(h in HI?HI[h]:1);
+const h=location.hash.slice(1); const HI={dragon:0,battle:1,stadium:2,historia:3,life:4,keisan:5,hissan:6,shousu:7}; show(h in HI?HI[h]:1);
 </script>
 </body>
 </html>

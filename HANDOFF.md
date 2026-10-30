@@ -14,7 +14,8 @@
   - X：Typefully に `plan_at`（予定。押すまで 出ない）で入れる → 先生が Typefully で確定
   - Instagram：Metricool に `draft: true`（下書き）で入れる → 先生が Metricool で確定
 - ゲームの公開URL（先生向け）：https://nochi-jpg.github.io/manabato/（暗号化した1ファイル版。学校のフィルターでは開けない）
-- **ポータル（10/17〜・SNSのプロフィールにはこれを貼る）**：https://nochi-jpg.github.io/manabi-sns/ （このリポジトリの index.html。5作（ドラゴン・バトル・スタジアム・ヒストリア・ライフ）をタブと◀▶で1本ずつ切りかえ、下に note・X・Instagram。スクロールなしの1画面。画像は img/。#dragon #battle #stadium #historia #life で最初に出すゲームを変えられる。新作が出たら index.html の GAMES とタブに足す）。開発記は https://nochi-jpg.github.io/manabi-sns/devlog/ のまま
+- **教育アプリポータル（10/17〜・10/30 改名）**：https://nochi-jpg.github.io/manabi-sns/ （index.html。8本：ドラゴン・バトル・スタジアム・ヒストリア・ライフ・計算おたすけ君・ひっ算おたすけ君・ひっ算おたすけ君（小数点あり）。タブ4×2段と◀▶で切りかえ、スクロールなし。**SNSリンクは先生の指示でいったん削除（10/30）**。クレジットは「制作：K.nomura」。#dragon #battle #stadium #historia #life #keisan #hissan #shousu で最初のアプリを変えられる。新作は GAMES とタブに足す。ロゴがない作品は ttl（色つきの文字）で出す）。開発記は /devlog/ のまま
+- **作者名（10/30〜）**：作品のクレジットは「K.nomura」。「のち（まなび堂）」名義は使わない
 
 ## 画像
 - このリポジトリ（公開）の `posts/<週>/` に 完成画像だけ置く。Instagram は raw.githubusercontent.com のURLを Metricool に渡せば 取りこまれる
