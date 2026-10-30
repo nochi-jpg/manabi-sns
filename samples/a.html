@@ -1,0 +1,34 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap"><link rel="stylesheet" href="common.css"><script src="data.js"></script><title>見本A 切りかえ</title>
+<style>
+.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(0,1fr) auto;gap:10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--panel);border-radius:16px;padding:4px;box-shadow:var(--shadow)}
+.seg button{height:44px;border:none;border-radius:12px;background:none;font-weight:800;font-size:15px;cursor:pointer;color:var(--sub)}
+.seg button small{font-size:11px;margin-left:4px}
+.seg button[aria-selected="true"]{background:var(--gc);color:#fff}
+.tabs{display:grid;gap:6px}
+.tab{font-weight:800;font-size:12.5px;white-space:nowrap;height:38px;border-radius:12px;border:2px solid var(--line);background:var(--panel);cursor:pointer;padding:0 2px}
+.tab[aria-selected="true"]{color:#fff;border-color:transparent;background:var(--c)}
+.stage{min-height:0;display:flex;align-items:center;gap:6px}
+.stage .card{flex:1;min-width:0}
+</style></head><body><div class="app">
+<script>document.currentScript.parentNode.prepend(smpBar('a'))</script>
+<header><span class="kick">EDUCATION APPS</span><h1>教育アプリポータル</h1></header>
+<div class="seg" role="tablist"><button id="sg" data-k="game">ゲーム<small>5</small></button><button id="st" data-k="tool">おたすけツール<small>3</small></button></div>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div class="stage"><button class="nav" id="prev" aria-label="前">◀</button><article class="card" id="card"></article><button class="nav" id="next" aria-label="次">▶</button></div>
+<footer>制作：K.nom（個人制作・塾や教室ではありません）</footer>
+</div>
+<script>
+let kind='game',idx=1;
+const tabs=document.getElementById('tabs'),card=document.getElementById('card');
+function render(){
+  const list=byKind(kind); idx=(idx+list.length)%list.length;
+  document.querySelectorAll('.seg button').forEach(b=>{b.setAttribute('aria-selected',String(b.dataset.k===kind)); b.style.setProperty('--gc',GROUPS[b.dataset.k].color)});
+  tabs.innerHTML=''; tabs.style.gridTemplateColumns='repeat('+list.length+',1fr)';
+  list.forEach((g,k)=>{const t=mk('button','tab',g.short); t.style.setProperty('--c',g.color); t.setAttribute('aria-selected',String(k===idx)); t.onclick=()=>{idx=k;render()}; tabs.append(t)});
+  fillCard(card,list[idx]);
+}
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{if(kind!==b.dataset.k){kind=b.dataset.k;idx=0;render()}});
+prev.onclick=()=>{idx--;render()}; next.onclick=()=>{idx++;render()}; swipe(card,d=>{idx+=d;render()});
+render();
+</script></body></html>

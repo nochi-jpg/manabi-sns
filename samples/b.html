@@ -1,0 +1,45 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap"><link rel="stylesheet" href="common.css"><script src="data.js"></script><title>見本B 入口</title>
+<style>
+.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;gap:10px}
+.scr{min-height:0;display:grid;gap:12px}
+#home{grid-template-rows:1fr 1fr}
+.door{display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:6px;border:none;border-radius:22px;background:var(--gc);color:#fff;padding:14px;box-shadow:var(--shadow);cursor:pointer;text-align:center;min-height:0;overflow:hidden}
+.door .strip{display:grid;grid-template-columns:repeat(3,minmax(0,84px));justify-content:center;align-items:center;gap:8px;min-height:0;height:100%}
+.door .strip>*{width:100%;height:100%;max-height:84px;background:rgba(255,255,255,.92);border-radius:14px;padding:4px;object-fit:contain;min-height:0}
+.door .strip .t{display:grid;place-items:center;color:var(--c);font-weight:800;font-size:13px;line-height:1.2}
+.door b{font-size:24px}
+.door span{font-size:13px;opacity:.95}
+.bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;height:44px}
+.back{height:40px;padding:0 14px;border-radius:12px;border:none;background:var(--panel);box-shadow:var(--shadow);font-weight:800;cursor:pointer}
+.bar h2{margin:0;text-align:center;font-size:17px}
+.bar .sp{width:72px}
+#list{grid-template-rows:auto minmax(0,1fr)}
+.grid{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:minmax(0,1fr);gap:10px;min-height:0}
+#detail{grid-template-rows:auto minmax(0,1fr)}
+.stage{min-height:0;display:flex;align-items:center;gap:6px}.stage .card{flex:1;min-width:0}
+</style></head><body><div class="app">
+<script>document.currentScript.parentNode.prepend(smpBar('b'))</script>
+<header><span class="kick">EDUCATION APPS</span><h1>教育アプリポータル</h1></header>
+<main class="scr" id="home"></main>
+<main class="scr" id="list" hidden><div class="bar"><button class="back" data-go="home">◀ もどる</button><h2 id="lt"></h2><span class="sp"></span></div><div class="grid" id="grid"></div></main>
+<main class="scr" id="detail" hidden><div class="bar"><button class="back" data-go="list">◀ 一覧</button><h2 id="dt"></h2><span class="sp"></span></div>
+<div class="stage"><button class="nav" id="prev" aria-label="前">◀</button><article class="card" id="card"></article><button class="nav" id="next" aria-label="次">▶</button></div></main>
+<footer>制作：K.nom（個人制作・塾や教室ではありません）</footer>
+</div>
+<script>
+let kind='game',idx=0;
+const S={home,list,detail};
+function go(s){Object.entries(S).forEach(([k,e])=>e.hidden=k!==s); S[s].classList.remove('pop'); void S[s].offsetWidth; S[s].classList.add('pop'); if(s==='list')drawList(); if(s==='detail')drawDetail()}
+Object.keys(GROUPS).forEach(k=>{
+  const G=GROUPS[k],d=mk('button','door'); d.style.setProperty('--gc',G.color);
+  const st=mk('div','strip'); byKind(k).slice(0,3).forEach(g=>{ if(g.iconTxt){const t=mk('div','t'); t.style.setProperty('--c',g.color); t.innerHTML=g.iconTxt; st.append(t)} else {const im=mk('img'); im.src=g.icon; im.alt=''; st.append(im)} });
+  d.append(st,mk('b',null,G.label+'（'+byKind(k).length+'）'),mk('span',null,G.lead));
+  d.onclick=()=>{kind=k;go('list')}; home.append(d);
+});
+function drawList(){ lt.textContent=GROUPS[kind].label; grid.innerHTML=''; const L=byKind(kind); grid.style.gridTemplateRows='repeat('+Math.ceil(Math.max(L.length,4)/2)+',minmax(0,1fr))';
+  L.forEach((g,k)=>{const t=makeTile(g); t.onclick=()=>{idx=k;go('detail')}; grid.append(t)}) }
+function drawDetail(){const L=byKind(kind); idx=(idx+L.length)%L.length; dt.textContent=GROUPS[kind].label+'　'+(idx+1)+'/'+L.length; fillCard(card,L[idx])}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+prev.onclick=()=>{idx--;drawDetail()}; next.onclick=()=>{idx++;drawDetail()}; swipe(card,d=>{idx+=d;drawDetail()});
+go('home');
+</script></body></html>

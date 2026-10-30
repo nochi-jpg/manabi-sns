@@ -1,0 +1,32 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap"><link rel="stylesheet" href="common.css"><script src="data.js"></script><title>見本C 一覧</title>
+<style>
+.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(0,1fr) auto;gap:10px}
+.sec{display:grid;gap:6px}
+.row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;height:clamp(78px,12vh,104px)}
+.row .tile{padding:4px 2px}
+.row .tile b{font-size:11px}
+.chip{background:var(--gc)}
+.sub{font-size:11px;color:var(--sub);font-weight:500}
+.tile .ic.txt{font-size:12px}
+@media (max-height:700px){.card .mons{display:none}.card .art{grid-template-rows:minmax(0,1fr)}}
+.card{grid-template-rows:auto minmax(0,1fr) auto auto auto}
+</style></head><body><div class="app">
+<script>document.currentScript.parentNode.prepend(smpBar('c'))</script>
+<header><span class="kick">EDUCATION APPS</span><h1>教育アプリポータル</h1></header>
+<section class="sec" id="sg"></section>
+<section class="sec" id="st"></section>
+<article class="card" id="card"></article>
+<footer>制作：K.nom（個人制作・塾や教室ではありません）</footer>
+</div>
+<script>
+let cur=ITEMS[1];
+function draw(){
+  [['game',sg],['tool',st]].forEach(([k,el])=>{
+    el.innerHTML=''; const h=mk('div','head2'); const c=mk('span','chip',GROUPS[k].label); c.style.setProperty('--gc',GROUPS[k].color); h.append(c,mk('span','sub',GROUPS[k].lead));
+    const r=mk('div','row'); byKind(k).forEach(g=>{const t=makeTile(g); t.setAttribute('aria-pressed',String(g===cur)); t.onclick=()=>{cur=g;draw()}; r.append(t)}); el.append(h,r);
+  });
+  fillCard(card,cur);
+}
+swipe(card,d=>{const i=ITEMS.indexOf(cur); cur=ITEMS[(i+d+ITEMS.length)%ITEMS.length]; draw()});
+draw();
+</script></body></html>
