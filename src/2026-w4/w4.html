@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:R;font-weight:400;src:url(F/MPLUSRounded1c-Regular.woff)}
+@font-face{font-family:R;font-weight:700;src:url(F/MPLUSRounded1c-Bold.woff)}
+@font-face{font-family:R;font-weight:900;src:url(F/MPLUSRounded1c-ExtraBold.woff)}
+@font-face{font-family:Dot;src:url(F/DotGothic16-Regular.woff)}
+:root{--pk:#ff5c9d;--pk2:#ffd1e3;--sky:#2bb3f0;--sky2:#d4f1ff;--lem:#ffd23f;--lem2:#fff3c4;--mint:#22c58b;--mint2:#d3f8e8;--pur:#8b5cf6;--pur2:#ece4ff;--ink:#2a2a5a;--cream:#fffaf0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#777;font-family:R,sans-serif;color:var(--ink)}
+img{display:block}
+.pg{position:relative;overflow:hidden;background:var(--cream);margin:0 0 30px}
+.ig{width:1080px;height:1350px}
+.x{width:1600px;height:900px}
+.dots{background-image:radial-gradient(rgba(255,92,157,.13) 9px,transparent 10px);background-size:46px 46px}
+.dots2{background-image:radial-gradient(rgba(43,179,240,.14) 8px,transparent 9px);background-size:40px 40px}
+.sun{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 62%,rgba(255,255,255,.6) 0 7deg,transparent 7deg 15deg)}
+.warm{background:linear-gradient(#ffe3ef,#fff6d6)}
+.shot{border-radius:20px;border:7px solid #fff;box-shadow:0 10px 0 rgba(42,42,90,.13),0 14px 30px rgba(42,42,90,.22);width:100%}
+.tape{position:absolute;width:130px;height:34px;background:rgba(255,210,63,.8);top:-16px;left:50%;transform:translateX(-50%) rotate(-4deg);border-radius:4px;z-index:2}
+.tape.pk{background:rgba(255,92,157,.6)}.tape.sk{background:rgba(43,179,240,.55)}
+.wrap{position:relative}
+.no{display:inline-block;white-space:nowrap;font-family:Dot;font-size:30px;background:var(--ink);color:#fff;border-radius:14px;padding:8px 18px;letter-spacing:2px}
+.kick{display:inline-block;font-family:Dot;font-size:30px;background:var(--ink);color:var(--lem);padding:8px 26px;border-radius:12px;letter-spacing:3px}
+h2{font-size:66px;font-weight:900;letter-spacing:1px;line-height:1.2}
+em,.em{font-style:normal;color:var(--pk)}
+.lead{font-size:31px;font-weight:700;line-height:1.65}
+.mark{background:linear-gradient(transparent 58%,var(--lem) 58%);padding:0 4px}
+.markp{background:linear-gradient(transparent 58%,var(--pk2) 58%);padding:0 4px}
+.card{background:#fff;border-radius:28px;box-shadow:0 8px 0 rgba(42,42,90,.10),0 12px 28px rgba(42,42,90,.14)}
+.bub{background:#fff;border:5px solid var(--ink);border-radius:28px;padding:18px 26px;font-size:30px;font-weight:700;line-height:1.5}
+.foot{position:absolute;bottom:0;left:0;right:0;height:78px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 48px;font-size:25px;font-weight:700}
+.foot b{font-family:Dot;font-size:28px;color:var(--lem);font-weight:400}
+.mon{filter:drop-shadow(0 10px 0 rgba(42,42,90,.13))}
+.sil{filter:brightness(0) opacity(.85)}
+.pill{display:inline-block;border-radius:999px;padding:6px 22px;font-weight:900;color:#fff;font-size:28px}
+.row{display:flex;gap:24px;align-items:center}
+.step{display:flex;gap:22px;align-items:center;padding:24px 28px}
+.step .n{flex:0 0 84px;height:84px;border-radius:50%;color:#fff;font-family:Dot;font-size:40px;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:36px;font-weight:900;line-height:1.3}
+.step p{font-size:26px;font-weight:700;line-height:1.5;margin-top:4px}
+
+.chip{display:inline-block;background:#fff;border:4px solid var(--ink);border-radius:999px;padding:8px 22px;font-size:26px;font-weight:900}
+.flow{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.flow .c{flex:1;text-align:center;background:#fff;border-radius:22px;padding:18px 6px;box-shadow:0 6px 0 rgba(42,42,90,.10)}
+.flow .c b{display:block;font-size:24px;font-weight:900;line-height:1.35}
+.flow .c span{font-family:Dot;font-size:22px;color:#6b6890}
+.flow i{font-style:normal;font-size:34px;font-weight:900;color:var(--pk)}
+.ng{display:inline-block;background:#ffe1e1;color:#d43c3c;border-radius:10px;padding:2px 14px;font-weight:900;font-size:26px}
+.big{font-size:40px;font-weight:900}
+</style></head><body>
+
+<!-- ============ X8 正解は1つに（11/5・画像あり） ============ -->
+<div class="pg x" id="x8" style="background:linear-gradient(#e6f6ff,#fffaf0)">
+  <div style="position:absolute;left:64px;top:56px;width:680px">
+    <span class="kick">#まなび開発記 #6</span>
+    <div style="font-size:56px;font-weight:900;line-height:1.35;margin-top:28px">学習ゲームの問題は<br><em>「正解が1つ」</em>に<br>決まるように。</div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:30px;align-items:flex-start">
+      <span class="chip">「上手」の読みは 文の中で聞く</span>
+      <span class="chip">2/4 と 1/2 を 誤答にしない</span>
+      <span class="chip">正解だけ 長くしない</span>
+    </div>
+  </div>
+  <div class="wrap" style="position:absolute;right:56px;top:96px;width:800px"><div class="tape sk"></div><img class="shot" src="S/zako.png"></div>
+  <div style="position:absolute;right:56px;top:584px;width:800px;text-align:center;font-size:26px;font-weight:900;color:#6b6890">まなびバトルの 問題画面（5教科 2500問）</div>
+  <div class="foot"><span>K.nom｜現役の小学校教員が Claudeで作った学習ゲーム</span><b>#まなび開発記</b></div>
+</div>
+
+<!-- ============ IG 1 表紙 ============ -->
+<div class="pg ig warm" id="ig1">
+  <div class="sun"></div>
+  <div style="position:absolute;top:56px;left:0;right:0;text-align:center"><span class="kick">#まなび開発記 #6</span></div>
+  <div style="position:absolute;top:150px;left:0;right:0;text-align:center">
+    <div style="font-size:42px;font-weight:900;color:#6b6890">AIと作る 学習ゲーム</div>
+    <div style="font-size:84px;font-weight:900;line-height:1.3;margin-top:16px"><em>問題づくり</em>の<br>チェックリスト</div>
+    <div style="font-size:34px;font-weight:700;margin-top:24px">先生が AIの問題を 直したこと</div>
+  </div>
+  <div class="wrap" style="position:absolute;left:110px;right:110px;top:620px"><div class="tape"></div><img class="shot" src="S/zako.png"></div>
+  <div style="position:absolute;left:0;right:0;top:1150px;text-align:center"><span class="bub">5教科 2500問を 点検して わかったこと</span></div>
+  <div class="foot"><span>▶ ゲームは プロフィールのリンクから 遊べます</span><b>1 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 2 正解は1つ ============ -->
+<div class="pg ig dots" id="ig2">
+  <div style="padding:64px 56px 0"><span class="no">01 正解は 1つ</span>
+    <h2 style="margin-top:20px">正しい答えが<br><em>2つ</em> あった</h2>
+  </div>
+  <div class="card" style="margin:44px 56px 0;padding:34px 40px">
+    <div class="big">「上手」の 読みは？</div>
+    <p class="lead" style="margin-top:12px">じょうず／うわて／かみて<br>→ <span class="markp">どれも 正しい</span>。「かみて」で 不正解に なっていた。</p>
+  </div>
+  <div class="card" style="margin:30px 56px 0;padding:34px 40px">
+    <div style="font-size:30px;font-weight:900;color:var(--mint)">なおし方</div>
+    <p class="lead" style="margin-top:8px">読みは 1語だけで 聞かず、<br><span class="mark">文の中で 聞く</span>（例：「雨が降る」）。</p>
+  </div>
+  <img class="mon" src="A/images/player/tansaibou.png" style="position:absolute;right:70px;top:70px;width:200px">
+  <div class="foot"><span>K.nom｜Claudeで作った学習ゲーム</span><b>2 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 3 誤答 ============ -->
+<div class="pg ig dots2" id="ig3">
+  <div style="padding:64px 56px 0"><span class="no">02 まちがいの 選択肢</span>
+    <h2 style="margin-top:20px">誤答こそ<br><em>まじめに</em> 作る</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:22px;margin:44px 56px 0">
+    <div class="card step"><div class="n" style="background:var(--pk)">1</div><div><h3>ふざけた 誤答に しない</h3><p><span class="ng">NG</span>「こんにちぱ」「北海道市」</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--sky)">2</div><div><h3>正解だけ 長くしない</h3><p>正解だけ 長い・くわしいと、<br>読まなくても 答えが わかってしまう</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--lem);color:var(--ink)">3</div><div><h3>同じ値を 誤答にしない</h3><p>2/4 と 1/2 は 同じ数。<br>別の書き方を まちがいに しない</p></div></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:110px;display:flex;justify-content:center;gap:40px"><img class="mon" src="A/images/player/kokugo_cute_1.png" style="width:230px"><img class="mon" src="A/images/player/eigo_cool_1.png" style="width:230px"></div>
+  <div class="foot"><span>K.nom｜Claudeで作った学習ゲーム</span><b>3 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 4 教科ごと ============ -->
+<div class="pg ig" id="ig4" style="background:linear-gradient(#f0fff8,#fffaf0)">
+  <div style="padding:64px 56px 0"><span class="no">03 教科ごとの 注意</span>
+    <h2 style="margin-top:20px">教科書と<br><em>ずれない</em>ように</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:22px;margin:44px 56px 0">
+    <div class="card step"><div class="n" style="background:var(--pk)">算</div><div><h3>答えは プログラムで 計算</h3><p>AIの 暗算に まかせず、計算して たしかめる</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--sky)">4</div><div><h3>4年の 式は x でなく □</h3><p>習っていない 書き方を 使わない</p></div></div>
+    <div class="card step"><div class="n" style="background:var(--mint)">社</div><div><h3>順位の 問題は 年を 書く</h3><p>統計は 年で 変わるので「○年の」をつける</p></div></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:110px;display:flex;justify-content:center;gap:40px"><img class="mon" src="A/images/player/sansu_cool_1.png" style="width:230px"><img class="mon" src="A/images/player/shakai_cute_1.png" style="width:230px"></div>
+  <div class="foot"><span>K.nom｜Claudeで作った学習ゲーム</span><b>4 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 5 点検 ============ -->
+<div class="pg ig dots" id="ig5">
+  <div style="padding:64px 56px 0"><span class="no">04 点検</span>
+    <h2 style="margin-top:20px">ぜんぶ 見直すと<br><em>直すところ</em>が出る</h2>
+  </div>
+  <div class="card" style="margin:44px 56px 0;padding:30px 38px">
+    <div style="font-size:30px;font-weight:900;color:var(--pk)">前作 まなびドラゴン</div>
+    <p class="lead" style="margin-top:6px">1184問を 見直して、<span class="mark">約170問を 修正</span>。</p>
+  </div>
+  <div class="card" style="margin:28px 56px 0;padding:30px 38px">
+    <div style="font-size:30px;font-weight:900;color:var(--sky)">今作 まなびバトル</div>
+    <p class="lead" style="margin-top:6px">1034問 → 2517問 → けずって<br><span class="mark">ぴったり 2500問</span>（5教科 × 500問）。</p>
+  </div>
+  <div class="card" style="margin:28px 56px 0;padding:30px 38px">
+    <div style="font-size:30px;font-weight:900;color:var(--mint)">点検ツールも Claudeが 作った</div>
+    <p class="lead" style="margin-top:6px;font-size:29px">重複／選択肢の 重なり／同じ値の 別表記／<br>正解だけ 長い を 自動で しらべる</p>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:110px;display:flex;justify-content:center;gap:40px"><img class="mon" src="A/images/player/rika_cute_1.png" style="width:230px"><img class="mon" src="A/images/player/all_cool_1.png" style="width:230px"></div>
+  <div class="foot"><span>K.nom｜Claudeで作った学習ゲーム</span><b>5 / 6 ▶</b></div>
+</div>
+
+<!-- ============ IG 6 出し方 + まとめ ============ -->
+<div class="pg ig warm" id="ig6">
+  <div style="padding:64px 56px 0"><span class="no">05 出し方</span>
+    <h2 style="margin-top:20px">「おんなじ問題ばっか」<br>→ <em>出し方</em>を 作りなおし</h2>
+  </div>
+  <div class="flow" style="margin:40px 56px 0">
+    <div class="c"><span>1</span><b>復習まち</b></div><i>›</i>
+    <div class="c"><span>2</span><b>新しい<br>問題</b></div><i>›</i>
+    <div class="c"><span>3</span><b>おさらい</b></div>
+  </div>
+  <div class="card" style="margin:34px 56px 0;padding:28px 36px"><p class="lead" style="font-size:29px">出題の学年は <span class="mark">教科ごとに 4・5・6年</span>。<br>解き終わったら つぎの学年へ すすむ。</p></div>
+  <div class="card" style="margin:28px 56px 0;padding:28px 36px;border:5px solid var(--pk)">
+    <div style="font-size:30px;font-weight:900;color:var(--pk)">まとめ</div>
+    <p class="lead" style="margin-top:6px;font-size:30px">問題を 作るのは AIが 速い。<br><span class="markp">「この問題で いいか」を 決めるのは 先生</span>。</p>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:1150px;text-align:center"><span class="bub">くわしくは note の #まなび開発記 #6 で 📌</span></div>
+  <div class="foot"><span>K.nom｜Claudeで作った学習ゲーム</span><b>6 / 6</b></div>
+</div>
+</body></html>
