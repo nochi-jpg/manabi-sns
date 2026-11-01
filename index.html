@@ -1,143 +1,588 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>教育アプリポータル</title>
-<meta name="description" content="小学校の先生がClaudeといっしょに作った学習ゲーム・学習アプリの入口。制作：K.nom">
-<meta property="og:title" content="教育アプリポータル">
-<meta property="og:description" content="小学校の先生がClaudeといっしょに作った学習ゲーム・学習アプリ（制作：K.nom）">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K.nomの教育アプリポータル</title>
+<meta name="description" content="小学校の先生がClaudeといっしょに作った学習アプリ・学習ゲームの入口。制作：K.nom">
+<meta property="og:title" content="K.nomの教育アプリポータル">
+<meta property="og:description" content="小学校の先生がClaudeといっしょに作った学習アプリ・学習ゲーム（制作：K.nom）">
 <meta property="og:image" content="https://nochi-jpg.github.io/manabi-sns/img/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="img/m_all.webp">
+<link rel="icon" href="img/face.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=DotGothic16&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
-/* layout: 1画面に収める。上＝名前、おたすけツール3本、ゲーム5本のアイコン、下＝えらんだアプリのくわしいカード。スクロールなし */
-:root{
-  --bg:#fff6e9; --panel:#ffffff; --ink:#2a2a5a; --sub:#6a6890; --line:#ece6f5;
-  --pk:#ff5c9d; --sky:#1f9fdc; --mint:#22b07f; --lem:#ffd23f; --pur:#8b5cf6; --shu:#c8553d; --ora:#e8862a; --teal:#1b9a9a; --navy:#3d5bd9;
-  --game:#ff5c9d; --tool:#1b9a9a;
-  --dot:rgba(255,92,157,.10);
-  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
-  --f-dot:"DotGothic16","M PLUS Rounded 1c",monospace;
-  --shadow:0 4px 0 rgba(42,42,90,.10),0 10px 24px rgba(42,42,90,.12);
-}
-@media (prefers-color-scheme:dark){:root{
-  --bg:#17163a; --panel:#24224f; --ink:#f1efff; --sub:#b4b1da; --line:#36346a; --dot:rgba(255,122,168,.10);
-  --shadow:0 4px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.3); color-scheme:dark}}
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{background:var(--bg) radial-gradient(var(--dot) 7px,transparent 8px) 0 0/34px 34px;color:var(--ink);font-family:var(--f-body);
-  padding:max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
-  display:flex;justify-content:center;overflow:hidden}
-button{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--pur);outline-offset:2px}
-[hidden]{display:none!important}
-header{text-align:center}
-header .kick{display:inline-block;font-family:var(--f-dot);font-size:12px;letter-spacing:.12em;background:var(--ink);color:var(--lem);border-radius:8px;padding:2px 10px}
-header h1{margin:6px 0 0;font-size:21px;font-weight:800;line-height:1.3}
-footer{font-size:11px;line-height:1.5;color:var(--sub);text-align:center}
-/* カード（くわしく） */
-.card{height:100%;min-height:0;min-width:0;grid-template-columns:minmax(0,1fr);background:var(--panel);border-radius:22px;box-shadow:var(--shadow);border:3px solid var(--c);padding:12px 14px 14px;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto auto;gap:9px;text-align:center;overflow:hidden}
-.badge{justify-self:center;font-size:12px;font-weight:800;color:#fff;background:var(--c);border-radius:999px;padding:3px 12px}
-.art{min-height:0;min-width:0;grid-template-columns:minmax(0,1fr);display:grid;grid-template-rows:minmax(0,1fr) minmax(0,.45fr);gap:6px;align-items:center}
-.art.solo{grid-template-rows:minmax(0,1fr)}
-.art .logo{display:block;width:100%;height:100%;min-height:0;object-fit:contain;filter:drop-shadow(0 6px 0 rgba(42,42,90,.12))}
-.art .logo.paper{background:#fff;border-radius:14px;padding:8px;filter:none}
-.art .ttl{display:grid;place-items:center;height:100%;overflow:hidden;min-height:0;border-radius:16px;background:var(--c);color:#fff;font-size:24px;font-weight:800;line-height:1.3;padding:8px}
-.art .ttl small{display:block;font-size:14px}
-.art .mons{display:flex;justify-content:center;gap:4px;height:100%;min-height:0;max-height:100px}
-.art .mons img{height:100%;width:auto;max-width:31%;min-height:0;object-fit:contain}
-.card h2{margin:0;font-size:18px;font-weight:800;text-wrap:balance;word-break:auto-phrase}
-.card .desc{margin:0;font-size:13px;line-height:1.6;text-wrap:pretty;word-break:auto-phrase}
-/* 将来 GitHub版／Canva版 の2つのボタンが入る場所（いまは1つ） */
-.btns{display:grid;grid-template-columns:1fr;gap:8px}
-.go{display:flex;align-items:center;justify-content:center;height:48px;border-radius:14px;background:var(--c);color:#fff;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.15)}
-.nav{font-size:18px;font-weight:800;width:40px;height:40px;border-radius:50%;border:none;background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;flex:none}
-/* アイコンタイル */
-.tile{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:4px;align-items:center;justify-items:center;min-height:0;height:100%;padding:6px 4px 6px;border-radius:16px;border:3px solid transparent;background:var(--panel);box-shadow:var(--shadow);cursor:pointer;text-decoration:none;color:var(--ink)}
-.tile .ic{width:100%;height:100%;min-height:0;object-fit:contain}
-.tile .ic.paper{background:#fff;border-radius:8px}
-.tile .ic.txt{display:grid;place-items:center;border-radius:10px;background:var(--c);color:#fff;font-weight:800;font-size:13px;line-height:1.2}
-.tile b{font-size:12px;font-weight:800;line-height:1.2;height:2.4em;display:grid;place-items:center;text-align:center;word-break:auto-phrase}
-.tile[aria-pressed="true"]{border-color:var(--c)}
-.head2{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px}
-.head2 .chip{font-size:11px;color:#fff;border-radius:999px;padding:2px 10px}
-@media (max-height:640px){header h1{font-size:18px}.card .desc{font-size:12px}.art .ttl{font-size:17px}.art .ttl small{font-size:11px}}
-@media (prefers-reduced-motion:no-preference){.pop{animation:pop .22s ease}@keyframes pop{from{transform:scale(.97);opacity:.6}to{transform:none;opacity:1}}}
+html,body{margin:0;height:100%;overflow:hidden;background:#F7F5EF;transition:background .6s}
+body{font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN','BIZ UDPGothic','Meiryo',sans-serif;color:#1A1A1A}
+button{font-family:inherit;color:#1A1A1A;-webkit-tap-highlight-color:transparent}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{position:relative;flex:none;overflow:hidden;transform-origin:center center;background:#F7F5EF;transition:background .6s;word-break:auto-phrase;line-break:strict}
+#stage.pc{width:1280px;height:720px}
+#stage.sp{width:720px;height:1280px}
+.nw{white-space:nowrap}
 
-.app{width:100%;max-width:460px;height:100%;max-height:860px;align-self:center;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto minmax(0,1fr) auto;gap:10px}
-.sec{display:grid;gap:6px}
-.row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;height:clamp(78px,12vh,104px)}
-.row .tile{padding:4px 2px}
-.row .tile b{font-size:11px}
-.chip{background:var(--gc)}
-.sub{font-size:11px;color:var(--sub);font-weight:500}
-.tile .ic.txt{font-size:12px}
-@media (max-height:700px){.card .mons{display:none}.card .art{grid-template-rows:minmax(0,1fr)}}
-.card{grid-template-rows:auto minmax(0,1fr) auto auto auto}
-footer br{display:block}
+/* アニメーション（ことばじてんと同じ） */
+@keyframes up{from{opacity:0;transform:translateY(28px)}}
+@keyframes rise{from{opacity:0;transform:translateY(36px);filter:blur(10px)}}
+@keyframes stepIn{from{opacity:0;transform:translateX(-24px)}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(16px)}}
+@keyframes swapR{from{opacity:0;transform:translateX(40px);filter:blur(6px)}}
+@keyframes swapL{from{opacity:0;transform:translateX(-40px);filter:blur(6px)}}
+.bounce{transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s cubic-bezier(.34,1.56,.64,1)}
+
+/* ===== 階層1 タイトル ===== */
+.title{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center}
+.title h1{margin:0;font-weight:900;letter-spacing:.06em;display:flex;flex-wrap:wrap;justify-content:center;white-space:nowrap}
+.ch{display:inline-block;animation:fade .8s ease backwards,fl 3.8s ease-in-out infinite}
+.lead{font-size:20px;font-weight:700;opacity:.7;white-space:nowrap;animation:fade .8s ease .4s backwards}
+.pbs{display:flex;gap:30px}
+.pb{display:flex;align-items:center;justify-content:space-between;width:400px;height:112px;padding:0 24px 0 34px;border:2px solid #1A1A1A;border-radius:18px;background:#fff;cursor:pointer;text-align:left;animation:up .7s cubic-bezier(.22,1,.36,1) backwards}
+.pb b{display:block;font-size:28px;font-weight:900;letter-spacing:.04em;white-space:nowrap}
+.pb small{display:block;margin-top:6px;font-size:16px;font-weight:700;opacity:.65;white-space:nowrap}
+.pb:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 #1A1A1A}
+.pb:active{transform:translate(2px,2px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.arr{flex:none;width:44px;height:44px;border-radius:50%;background:var(--arr,#fff);border:2px solid #1A1A1A;display:flex;align-items:center;justify-content:center;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.pb:hover .arr{transform:translateX(5px) rotate(-12deg)}
+.deco{position:absolute;display:grid;gap:14px}
+.deco img{display:block;border:2px solid #1A1A1A;border-radius:10px;background:#fff;animation:fade .8s ease backwards,bob 3.4s ease-in-out infinite}
+.face{width:96px;height:96px;border-radius:50%;border:2px solid #1A1A1A;background:#fff;object-fit:cover;animation:pop .6s cubic-bezier(.34,1.56,.64,1) .45s backwards,bob 3.6s ease-in-out 1.1s infinite}
+.sp .face{width:110px;height:110px}
+.marq{position:absolute;left:0;right:0;bottom:40px;height:104px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);animation:fade .8s ease .7s backwards}
+.marq{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.marq.drag{cursor:grabbing}
+.mtrack{display:flex;width:max-content;padding:10px 0 0 10px;will-change:transform}
+.mi img{pointer-events:none;-webkit-user-drag:none}
+.mi{flex:none;width:144px;height:81px;margin-right:22px;padding:0;border:2px solid #1A1A1A;border-radius:10px;overflow:hidden;background:#fff;cursor:pointer}
+.mi img{display:block;width:100%;height:100%;object-fit:cover}
+.mi:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 #1A1A1A}
+.mi:active{transform:translate(1px,1px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.credit{position:absolute;right:24px;bottom:14px;font-size:14px;font-weight:700;opacity:.75;white-space:nowrap}
+.pc .title{padding-top:76px;gap:20px}
+.pc .title h1{font-size:62px}
+.pc .pbs{margin-top:16px}
+.pc .deco{left:50%;transform:translateX(-50%);bottom:58px;grid-template-columns:repeat(9,120px)}
+.pc .deco img{width:120px;height:68px}
+.sp .title{padding-top:118px;gap:24px}
+.sp .title h1{font-size:60px;width:640px;line-height:1.35}
+.sp .lead{font-size:24px}
+.sp .pbs{flex-direction:column;gap:26px;margin-top:20px}
+.sp .pb{width:560px;height:132px}
+.sp .pb b{font-size:32px}
+.sp .pb small{font-size:19px}
+.sp .deco{left:50%;transform:translateX(-50%);bottom:72px;grid-template-columns:repeat(3,180px);gap:16px 20px}
+.sp .deco img{width:180px;height:101px}
+.sp .credit{font-size:18px;bottom:24px}
+
+/* ===== ヘッダー ===== */
+.hd{position:absolute;left:40px;top:28px;right:40px;display:flex;align-items:center;gap:12px;z-index:5}
+.hd .name{margin-left:16px;font-size:20px;font-weight:900;letter-spacing:.06em;flex:1;white-space:nowrap}
+.ic{flex:none;width:48px;height:48px;border-radius:50%;border:2px solid #1A1A1A;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,opacity .2s}
+.ic:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 #1A1A1A}
+.ic:active{transform:translate(1px,1px);box-shadow:0 0 0 #1A1A1A}
+.ic:disabled{opacity:.3;cursor:default;transform:none;box-shadow:none}
+.sp .hd{left:24px;right:24px;top:24px}
+.sp .ic{width:60px;height:60px}
+.sp .hd .name{font-size:22px}
+
+/* ===== 道しるべ ===== */
+.nav{position:absolute;display:flex}
+.stp{display:flex;align-items:center;gap:12px;border:0;background:transparent;padding:0;height:44px;font-size:22px;font-weight:700;cursor:pointer;animation:stepIn .5s cubic-bezier(.22,1,.36,1) backwards;transition:transform .3s cubic-bezier(.34,1.56,.64,1);text-align:left;white-space:nowrap}
+.stp:hover{transform:translateX(6px)}
+.stp.cur{cursor:default;font-weight:900}
+.stp.cur:hover{transform:none}
+.sd{flex:none;width:18px;height:18px;margin:0 11px;border-radius:50%;background:#1A1A1A}
+.stp.cur .sd{width:24px;height:24px;margin:0 8px;border:5px solid #1A1A1A;background:#fff}
+.ghost{display:flex;align-items:center;gap:12px;height:44px;font-size:20px;font-weight:700;opacity:.55;white-space:nowrap;animation:stepIn .5s cubic-bezier(.22,1,.36,1) backwards}
+.ghost .sd{background:transparent;border:2px dashed #1A1A1A}
+.pc .nav{left:40px;top:136px;width:310px;flex-direction:column}
+.pc .stl{max-width:250px;overflow:hidden;white-space:nowrap}
+.pc .conn{display:block;width:0;height:26px;margin-left:19px;border-left:2px dotted #1A1A1A}
+.sp .nav{left:24px;top:108px;right:24px;flex-direction:row;align-items:center;gap:0}
+.sp .stp,.sp .ghost{font-size:21px;gap:4px}
+.sp .stp.cur{font-size:21px}
+.sp .sd{width:14px;height:14px;margin:0 6px}
+.sp .stp.cur .sd{width:20px;height:20px;margin:0 4px;border-width:4px}
+.sp .conn{display:block;width:26px;height:0;margin:0 6px;border-top:2px dotted #1A1A1A}
+.sp .stl{max-width:250px;overflow:hidden;white-space:nowrap}
+.pips{position:absolute;right:18px;top:300px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.pip{width:12px;height:12px;border-radius:6px;border:2px solid #1A1A1A;transition:height .4s cubic-bezier(.34,1.56,.64,1),background .3s}
+.pip.done{background:#1A1A1A}
+.pip.on{height:32px;background:#1A1A1A}
+.sp .pips{display:none}
+
+/* ===== 階層2 一覧 ===== */
+.main{position:absolute;display:flex;flex-direction:column}
+.pc .main{left:380px;top:108px;width:860px;gap:14px}
+.sp .main{left:24px;top:176px;width:672px;gap:22px}
+.mh{display:flex;align-items:flex-end;gap:16px;animation:rise .7s cubic-bezier(.22,1,.36,1) backwards}
+.mh .tt{flex:1;min-width:0}
+.mh h2{margin:0;font-size:32px;font-weight:900;letter-spacing:.04em;white-space:nowrap}
+.mh p{margin:4px 0 0;font-size:16px;font-weight:700;opacity:.75;white-space:nowrap}
+.sp .mh{flex-wrap:wrap}
+.sp .mh .tt{flex-basis:100%}
+.sp .fbs{margin-left:auto}
+.sp .mh h2{font-size:44px}
+.sp .mh p{font-size:20px}
+.fbs{display:flex;gap:12px;flex:none}
+.fb{display:flex;align-items:center;justify-content:center;gap:8px;width:150px;height:46px;border:2px solid #1A1A1A;border-radius:23px;background:#fff;font-size:17px;font-weight:900;white-space:nowrap;cursor:pointer;padding:0 10px}
+.fb:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 #1A1A1A}
+.fb:active{transform:translate(1px,1px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.fb.on{background:#1A1A1A;color:#fff}
+.fb.on svg{stroke:#fff}
+.sp .fb{width:156px;height:56px;border-radius:28px;font-size:19px}
+.grid{display:grid;grid-template-columns:repeat(3,244px);gap:18px 30px}
+.sp .grid{grid-template-columns:1fr;gap:16px}
+/* カード（PC：上に絵／スマホ：Steam一覧風に横長） */
+.cd{position:relative;border:2px solid #1A1A1A;border-radius:16px;background:#fff;cursor:pointer;padding:12px;text-align:left;animation:up .55s cubic-bezier(.22,1,.36,1) backwards}
+.cd:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 #1A1A1A}
+.cd:active{transform:translate(2px,2px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.cbar{position:absolute;left:22px;top:-2px;width:72px;height:8px;border-radius:0 0 3px 3px;background:var(--c);transition:width .4s cubic-bezier(.22,1,.36,1);z-index:1}
+.cd:hover .cbar{width:120px}
+.cth{display:block;width:216px;height:122px;object-fit:cover;border-radius:8px;border:2px solid #1A1A1A}
+.cn{display:flex;align-items:center;margin-top:6px;font-size:18px;font-weight:900;white-space:nowrap;height:48px;line-height:1.3}
+.cl{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;height:40px}
+.pc .cd .tag{font-size:13px}
+.tag{font-size:14px;font-weight:700;padding:4px 10px;border-radius:12px;background:#F0EEE6;white-space:nowrap}
+.cd .arr{width:40px;height:40px;background:var(--c)}
+.cd:hover .arr{transform:translateX(5px) rotate(-12deg)}
+.sp .cd{display:grid;grid-template-columns:240px 1fr;column-gap:20px;height:154px;padding:12px}
+.sp .cth{width:240px;height:126px;grid-row:1/3}
+.sp .cn{margin-top:4px;height:72px;font-size:28px;line-height:1.25}
+.sp .cl{margin-top:0;align-self:end;height:48px}
+.sp .tag{font-size:17px;padding:5px 12px}
+.sp .cd .arr{width:48px;height:48px}
+.empty{padding:60px 0;text-align:center;font-size:22px;font-weight:700;opacity:.7;animation:fade .5s ease}
+
+/* ポップアップ */
+.ov{position:absolute;inset:0;background:rgba(26,26,26,.35);display:flex;align-items:center;justify-content:center;z-index:20;animation:fade .2s ease}
+.panel{width:760px;padding:32px 36px 36px;border:2px solid #1A1A1A;border-radius:22px;background:#fff;box-shadow:8px 8px 0 #1A1A1A;display:flex;flex-direction:column;gap:24px;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.panel h3{margin:0;font-size:28px;font-weight:900;white-space:nowrap}
+.sgs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sg{height:56px;border:2px solid #1A1A1A;border-radius:28px;background:#fff;font-size:19px;font-weight:700;white-space:nowrap;cursor:pointer}
+.sg:hover{transform:translate(-3px,-3px);box-shadow:4px 4px 0 #1A1A1A}
+.sg:active{transform:translate(1px,1px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.sg.on{background:#1A1A1A;color:#fff}
+.prow{display:flex;justify-content:flex-end}
+.sp .panel{width:640px}
+.sp .sgs{grid-template-columns:repeat(3,1fr)}
+.sp .sg{height:66px;font-size:22px;border-radius:33px}
+
+/* ===== 階層3 紹介 ===== */
+.pc .main.l3{left:380px;top:100px;width:860px;gap:0}
+.sp .main.l3{left:24px;top:170px;width:672px;gap:0}
+.gal{display:flex;align-items:center;justify-content:center;gap:14px;animation:rise .7s cubic-bezier(.22,1,.36,1) backwards}
+.big{position:relative;border:2px solid #1A1A1A;border-radius:14px;overflow:hidden;background:#1A1A1A;flex:none}
+.big{padding:0;cursor:zoom-in}
+.big:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 #1A1A1A}
+.big img{display:block;width:100%;height:100%;object-fit:cover}
+.big img.r{animation:swapR .45s cubic-bezier(.22,1,.36,1)}
+.big img.l{animation:swapL .45s cubic-bezier(.22,1,.36,1)}
+/* 拡大表示 */
+#zoom{z-index:30;background:rgba(26,26,26,.55)}
+.zbox{display:flex;align-items:center;gap:16px;animation:pop .35s cubic-bezier(.34,1.56,.64,1)}
+.zimg{position:relative;flex:none;width:992px;height:558px;border:2px solid #1A1A1A;border-radius:14px;overflow:hidden;background:#1A1A1A;box-shadow:8px 8px 0 #1A1A1A}
+.zimg img{display:block;width:100%;height:100%;object-fit:cover}
+.zimg img.r{animation:swapR .45s cubic-bezier(.22,1,.36,1)}
+.zimg img.l{animation:swapL .45s cubic-bezier(.22,1,.36,1)}
+.zx{position:absolute;right:40px;top:20px}
+.sp .zbox{flex-wrap:wrap;justify-content:center;width:688px;gap:28px}
+.sp .zimg{order:-1;width:688px;height:387px}
+.sp .zx{right:24px;top:24px}
+.cnt{position:absolute;right:10px;bottom:10px;font-size:14px;font-weight:900;padding:3px 10px;border-radius:10px;background:#fff;border:2px solid #1A1A1A;white-space:nowrap}
+.pc .big{width:640px;height:360px}
+.sp .big{width:536px;height:302px}
+.sp .gal .ic{width:56px;height:56px}
+.thw{margin-top:12px}
+.tv{display:flex;gap:8px;padding:6px;margin:-6px}
+.tv.scr{overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior:contain}
+.tv.scr::-webkit-scrollbar{display:none}
+.th{flex:none;padding:0;border:2px solid #1A1A1A;border-radius:8px;overflow:hidden;cursor:pointer;background:#fff;opacity:.55;animation:up .5s cubic-bezier(.22,1,.36,1) backwards}
+.th img{display:block;width:100%;height:100%;object-fit:cover}
+.th:hover{opacity:1;transform:translate(-2px,-2px);box-shadow:3px 3px 0 #1A1A1A}
+.th.on{opacity:1;outline:3px solid #fff;outline-offset:-5px;box-shadow:3px 3px 0 #1A1A1A}
+.pc .th{width:100px;height:56px}
+.pc .tv{justify-content:center}
+.pc .tv.scr{justify-content:flex-start}
+.sp .tv.wrap{flex-wrap:wrap;gap:12px}
+.sp .th{width:159px;height:89px}
+/* 横向きの自作スクロールバー（ことばじてんと同じ見た目） */
+.trk{position:relative;height:14px;margin-top:8px;cursor:pointer}
+.trk::before{content:'';position:absolute;top:6px;left:0;right:0;height:2px;border-radius:1px;background:#1A1A1A;opacity:.35}
+.thm{position:absolute;top:3px;left:0;height:8px;border-radius:4px;background:#1A1A1A;cursor:grab;touch-action:none}
+.thm:active{cursor:grabbing}
+.info{display:flex;gap:24px;align-items:flex-start;animation:rise .7s cubic-bezier(.22,1,.36,1) .12s backwards}
+.pc .info{margin-top:12px;height:122px}
+.sp .info{margin-top:26px;flex-direction:column;gap:20px}
+.it{flex:1;min-width:0}
+.it h2{margin:0;font-size:28px;font-weight:900;white-space:nowrap;line-height:1.3}
+.tags{display:flex;gap:8px;margin-top:6px}
+.it p{margin:8px 0 0;font-size:15px;font-weight:700;line-height:1.6}
+.sp .it h2{font-size:36px}
+.sp .tag{font-size:17px}
+.sp .it p{font-size:20px;margin-top:12px}
+.gos{display:flex;flex-direction:column;gap:12px;flex:none}
+.go{display:flex;align-items:center;justify-content:space-between;width:250px;height:54px;padding:0 10px 0 22px;border:2px solid #1A1A1A;border-radius:27px;background:#fff;font-size:18px;font-weight:900;white-space:nowrap;text-decoration:none;color:#1A1A1A}
+.go .arr{width:36px;height:36px;background:var(--c)}
+.go:hover{transform:translate(-4px,-4px);box-shadow:5px 5px 0 #1A1A1A}
+.go:hover .arr{transform:translateX(4px) rotate(-12deg)}
+.go:active{transform:translate(2px,2px);box-shadow:0 0 0 #1A1A1A;transition-duration:.08s}
+.go.off{background:#E4E1D8;color:#8C897F;border-color:#B5B2A8;cursor:default;pointer-events:none}
+.go.off{justify-content:center;padding:0 16px}
+.sp .gos{flex-direction:row;gap:20px}
+.sp .go{width:326px;height:72px;border-radius:36px;font-size:22px}
+.sp .go .arr{width:44px;height:44px}
+.note{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;font-size:12px;font-weight:700;opacity:.6;white-space:nowrap}
+.sp .note{font-size:16px;bottom:14px}
 </style>
 </head>
-<body><div class="app">
-<header><span class="kick">EDUCATION APPS</span><h1>教育アプリポータル</h1></header>
-<section class="sec" id="st"></section>
-<section class="sec" id="sg"></section>
-<article class="card" id="card" aria-live="polite"></article>
-<footer>制作：K.nom（個人制作・塾や教室ではありません）<br>学校の端末では、フィルターで開けないことがあります</footer>
-</div>
+<body>
+<div id="viewport"><div id="stage" class="pc"></div></div>
 <script>
-const ITEMS=[
- {id:'dragon',kind:'game',name:'まなびドラゴン',short:'ドラゴン',no:'第1作',color:'var(--mint)',logo:'img/logo_dragon.webp',icon:'img/logo_dragon.webp',mons:[],
-  for:'小学4〜6年',desc:'勉強して竜を育て、ラスボスに挑む。学習×ローグライト。6教科1184問、1日3回まで。',url:'https://nochi-jpg.github.io/manabi-dragon/',btn:'あそぶ'},
- {id:'battle',kind:'game',name:'まなびバトル',short:'バトル',no:'第2作・いちおし',color:'var(--pk)',logo:'img/logo_battle.webp',icon:'img/m_all.webp',mons:['m_kokugo','m_all','m_rika'],
-  for:'小学4〜6年',desc:'5教科2500問に答えてモンスターを育て、ボスと戦う。友だちとQRで1台対戦。キャラはぜんぶ手描き。',url:'https://nochi-jpg.github.io/manabato/',btn:'あそぶ'},
- {id:'stadium',kind:'game',name:'まなびスタジアム',short:'スタジアム',no:'第3作・先生用',color:'var(--pur)',logo:'img/logo_stadium.webp',icon:'img/m_sansu.webp',mons:['m_sansu','m_eigo','m_shakai'],
-  for:'先生用（電子黒板）',desc:'子どもの まなびバトルのQRを読みこんで、大画面で3Dの対戦を上映。クラス大会に。',url:'https://nochi-jpg.github.io/manasuta/',btn:'ひらく'},
- {id:'historia',kind:'game',name:'まなびヒストリア',short:'ヒストリア',no:'第4作',color:'var(--shu)',logo:'img/logo_historia.webp',paper:true,icon:'img/h_yuuki.webp',mons:['h_yuuki','h_honjii','h_tokei'],
-  for:'小学6年・社会',desc:'タイムスリップして、ゆがめられた日本の歴史を正す。証言のおかしなところに「カード」をつきつける、歴史の追体験ゲーム。',url:'https://nochi-jpg.github.io/manabi-historia/',btn:'あそぶ'},
- {id:'life',kind:'game',name:'まなびライフ',short:'ライフ',no:'第5作',color:'var(--sky)',logo:'img/life_title.webp',paper:true,icon:'img/life_title.webp',iconPaper:true,mons:[],
-  for:'小学5・6年・キャリア教育',desc:'日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。',url:'https://nochi-jpg.github.io/manabi-life/play/',btn:'あそぶ'},
- {id:'keisan',kind:'tool',name:'計算おたすけ君',short:'計算',no:'おたすけツール',color:'var(--ora)',ttl:'計算<br>おたすけ君',iconTxt:'計算',mons:['otasuke_chara'],
-  for:'小学1年・計算',desc:'ブロック・数の線・さくらんぼで、くり上がり・くり下がりの考え方をおたすけ。問題に挑戦するモードもあり。',url:'https://nochi-jpg.github.io/otasuke-keisan/',btn:'つかう'},
- {id:'hissan',kind:'tool',name:'ひっ算おたすけ君',short:'ひっ算',no:'おたすけツール',color:'var(--teal)',ttl:'ひっ算<br>おたすけ君',iconTxt:'ひっ算',mons:['otasuke_chara'],
-  for:'筆算',desc:'たし算・ひき算・かけ算・わり算の筆算を、答えは言わずに1段ずつおたすけ。さくらんぼ法や九九の表も見られる。',url:'https://daizou.my.canva.site/otasuke',btn:'つかう'},
- {id:'shousu',kind:'tool',name:'ひっ算おたすけ君（小数点あり）',short:'小数ひっ算',no:'おたすけツール',color:'var(--navy)',ttl:'ひっ算<br>おたすけ君<small>小数点あり版</small>',iconTxt:'小数<br>ひっ算',mons:['otasuke_chara'],
-  for:'小数の筆算',desc:'ひっ算おたすけ君の、小数点がある計算に使える版。',url:'https://daizou.my.canva.site/otasukeshosu',btn:'つかう'}
+(() => {
+'use strict';
+const ARR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+const IC = {
+  back: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  fwd: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  home: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg>',
+  filt: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>'
+};
+const GROUP = {
+  tool: { label: '学習支援アプリ', lead: '授業や宿題で つかう', bg: '#98D9A8' },
+  game: { label: '学習ゲームアプリ', lead: 'あそびながら 勉強する', bg: '#FF96BE' }
+};
+const S5 = ['国語', '算数', '理科', '社会', '英語'];
+// 学年・教科は仮（先生に確認する）
+const ITEMS = [
+  { id: 'keisan', kind: 'tool', name: '計算おたすけ君', c: '#FFAD5C', n: 4, g: [1], s: ['算数'], gh: 'https://nochi-jpg.github.io/otasuke-keisan/', cv: null,
+    desc: 'ブロック・数の線・さくらんぼで、くり上がり・くり下がりの考え方をおたすけ。問題に挑戦するモードもあり。' },
+  { id: 'hissan', kind: 'tool', name: 'ひっ算おたすけ君', c: '#7FD0CC', n: 4, g: [2, 3, 4], s: ['算数'], gh: null, cv: 'https://daizou.my.canva.site/otasuke',
+    desc: 'たし算・ひき算・かけ算・わり算の筆算を、答えは言わずに1段ずつおたすけ。さくらんぼ法や九九の表も見られる。' },
+  { id: 'shousu', kind: 'tool', name: 'ひっ算おたすけ君（小数点あり）', br: 'ひっ算おたすけ君<br>（小数点あり）', c: '#9FB4F0', n: 5, g: [4, 5], s: ['算数'], gh: null, cv: 'https://daizou.my.canva.site/otasukeshosu',
+    desc: 'ひっ算おたすけ君の、小数点がある計算に使える版。' },
+  { id: 'kimochi', kind: 'tool', name: 'きもちをあらわすことばじてん', br: 'きもちをあらわす<br>ことばじてん', c: '#FFE04A', n: 7, g: [1, 2, 3, 4, 5, 6], s: ['国語'], gh: 'https://nochi-jpg.github.io/kimochi-search/', cv: 'https://daizou.my.canva.site/kimochi-jiten',
+    desc: '作文の気持ちの書き方が、ワンパターンにならないように。7つの気持ちからえらんで、ぴったりの言葉を見つける辞典。言葉クイズつき。' },
+  { id: 'dragon', kind: 'game', name: 'まなびドラゴン', c: '#98D9A8', n: 6, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabi-dragon/', cv: null,
+    desc: '勉強して竜を育て、ラスボスに挑む。学習×ローグライト。6教科1184問、1日3回まで。' },
+  { id: 'battle', kind: 'game', name: 'まなびバトル', c: '#FF96BE', n: 11, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabato/', cv: null,
+    desc: '5教科2500問に答えてモンスターを育て、ボスと戦う。友だちとQRで1台対戦。キャラはぜんぶ手描き。' },
+  { id: 'stadium', kind: 'game', name: 'まなびスタジアム', c: '#BCAEF2', n: 5, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manasuta/', cv: null, who: '先生用',
+    desc: '子どもの まなびバトルのQRを読みこんで、大画面で3Dの対戦を上映。クラス大会に。' },
+  { id: 'historia', kind: 'game', name: 'まなびヒストリア', c: '#F4A88E', n: 6, g: [6], s: ['社会'], gh: 'https://nochi-jpg.github.io/manabi-historia/', cv: null,
+    desc: 'タイムスリップして、ゆがめられた日本の歴史を正す。証言のおかしなところに「カード」をつきつける、歴史の追体験ゲーム。' },
+  { id: 'life', kind: 'game', name: 'まなびライフ', c: '#8FB3DB', n: 6, g: [5, 6], s: ['キャリア'], gh: 'https://nochi-jpg.github.io/manabi-life/play/', cv: null,
+    desc: '日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。' }
 ];
-const GROUPS={game:{label:'ゲーム',color:'var(--game)',lead:'あそびながら 勉強する'},tool:{label:'おたすけツール',color:'var(--tool)',lead:'授業や宿題で つかう'}};
-const byKind=k=>ITEMS.filter(x=>x.kind===k);
-const mk=(t,c,txt)=>{const e=document.createElement(t); if(c) e.className=c; if(txt!=null) e.textContent=txt; return e};
-function fillCard(card,g){
-  card.style.setProperty('--c',g.color); card.innerHTML='';
-  const art=mk('div','art');
-  if(g.logo){const lg=mk('img',g.paper?'logo paper':'logo'); lg.src=g.logo; lg.alt=g.name+' ロゴ'; art.append(lg);} else {const t=mk('div','ttl'); t.innerHTML='<span>'+g.ttl+'</span>'; art.append(t);}
-  if(g.mons.length){const m=mk('div','mons'); g.mons.forEach(k=>{const im=mk('img'); im.src='img/'+k+'.webp'; im.alt=''; m.append(im)}); art.append(m)} else art.classList.add('solo');
-  const btns=mk('div','btns'); const a=mk('a','go',g.btn+' ▶'); a.href=g.url; a.target='_blank'; a.rel='noopener'; btns.append(a);
-  card.append(mk('span','badge',g.no+'｜'+g.for),art,mk('h2',null,g.name),mk('p','desc',g.desc),btns);
-  card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
-}
-function makeTile(g,tag){
-  const t=mk(tag||'button','tile'); t.style.setProperty('--c',g.color);
-  if(g.iconTxt){const d=mk('div','ic txt'); d.innerHTML=g.iconTxt; t.append(d)} else {const im=mk('img','ic'+(g.iconPaper?' paper':'')); im.src=g.icon; im.alt=''; t.append(im)}
-  t.append(mk('b',null,g.short)); return t;
-}
-function swipe(el,fn){let sx=null; el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true}); el.addEventListener('touchend',e=>{if(sx==null)return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) fn(dx<0?1:-1); sx=null})}
+// リリース順（新しい順）。新作はいちばん前に足す
+const REL = ['kimochi', 'shousu', 'hissan', 'keisan', 'life', 'historia', 'stadium', 'battle', 'dragon'];
+ITEMS.sort((a, b) => REL.indexOf(a.id) - REL.indexOf(b.id));
+const IM = {}; ITEMS.forEach(x => IM[x.id] = x);
+// 色（カラー案2「やわらか」で決定）
+const COL = { tool: '#B7DFC6', game: '#F2C9D6', apps: { kimochi: '#F6E192', keisan: '#F7CBA0', shousu: '#C3CEF0', hissan: '#AEDAD6', life: '#B6CBE3', historia: '#F1C2B2', stadium: '#D2C9F1', battle: '#F2C3D3', dragon: '#B7DFC6' } };
+GROUP.tool.bg = COL.tool; GROUP.game.bg = COL.game; ITEMS.forEach(x => x.c = COL.apps[x.id]);
+const SUBJ = ['国語', '算数', '理科', '社会', '英語', 'キャリア'];
+const img = (id, i) => `img/apps/${id}/${i}.webp`;
+const gradeTxt = g => g.length === 1 ? `小学${g[0]}年` : `小学${g[0]}〜${g[g.length - 1]}年`;
+const subjTxt = s => s.length >= 5 ? '5教科' : s.join('・');
+const fit = (t, w, base) => Math.min(base, Math.floor(w / t.length));
 
-const ORDER=[...byKind('tool'),...byKind('game')];
-const h=location.hash.slice(1);
-let cur=ORDER.find(g=>g.id===h)||ORDER[0];
-function draw(){
-  [['tool',st],['game',sg]].forEach(([k,el])=>{
-    el.innerHTML=''; const hd=mk('div','head2'); const c=mk('span','chip',GROUPS[k].label); c.style.setProperty('--gc',GROUPS[k].color); hd.append(c,mk('span','sub',GROUPS[k].lead));
-    const r=mk('div','row'); byKind(k).forEach(g=>{const t=makeTile(g); t.setAttribute('aria-pressed',String(g===cur)); t.setAttribute('aria-label',g.name); t.onclick=()=>{cur=g;draw()}; r.append(t)}); el.append(hd,r);
-  });
-  fillCard(card,cur);
+const stage = document.getElementById('stage');
+let mode = 'pc';
+function layout() {
+  const vw = innerWidth, vh = innerHeight;
+  mode = vh > vw * 1.1 ? 'sp' : 'pc';
+  if (!stage.classList.contains(mode)) { stage.className = mode; render(); }
+  const W = mode === 'pc' ? 1280 : 720;
+  const H = mode === 'pc' ? 720 : Math.round(Math.max(1280, Math.min(1600, 720 * vh / vw)));
+  stage.style.height = H + 'px';
+  stage.style.transform = `scale(${Math.min(vw / W, vh / H)})`;
 }
-swipe(card,d=>{const i=ORDER.indexOf(cur); cur=ORDER[(i+d+ORDER.length)%ORDER.length]; draw()});
-draw();
+
+// 状態とページ移動（ことばじてん：もどる＝ひとつ前に見ていた画面）
+let cur = { lv: 1 };
+const backS = [], fwdS = [];
+const flt = { g: null, s: null };
+let slide = 1, dir = 'r';
+function go(st) { backS.push(cur); fwdS.length = 0; cur = st; slide = 1; render(); }
+function back() { if (!backS.length) return; fwdS.push(cur); cur = backS.pop(); slide = 1; render(); }
+function fwd() { if (!fwdS.length) return; backS.push(cur); cur = fwdS.pop(); slide = 1; render(); }
+
+function setBg(c) { stage.style.background = c; document.body.style.background = c; }
+
+function header() {
+  return `<div class="hd">
+    <button class="ic" data-a="back" aria-label="もどる" ${backS.length ? '' : 'disabled'}>${IC.back}</button>
+    <button class="ic" data-a="fwd" aria-label="すすむ" ${fwdS.length ? '' : 'disabled'}>${IC.fwd}</button>
+    <span class="name">${mode === 'pc' ? 'K.nomの教育アプリポータル' : ''}</span>
+    <button class="ic" data-a="home" aria-label="タイトルへ">${IC.home}</button></div>`;
+}
+function nav() {
+  const steps = [{ t: 'ポータル', st: { lv: 1 } }];
+  if (cur.lv >= 2) steps.push({ t: GROUP[cur.kind].label, st: { lv: 2, kind: cur.kind } });
+  if (cur.lv === 3) steps.push({ t: IM[cur.id].name, st: cur });
+  let h = '<div class="nav">';
+  steps.forEach((s, i) => {
+    const last = i === steps.length - 1;
+    const lw = mode === 'pc' ? 250 : (cur.lv === 3 && last ? 250 : 220);
+    const fs = fit(s.t, lw, mode === 'pc' ? (last ? 25 : 22) : 21);
+    h += `<button class="stp${last ? ' cur' : ''}" style="animation-delay:${i * .05}s" ${last ? '' : `data-crumb="${i}"`}><span class="sd"></span><span class="stl" style="font-size:${fs}px">${s.t}</span></button>`;
+    if (!last || cur.lv === 2) h += '<span class="conn"></span>';
+  });
+  if (cur.lv === 2) h += `<span class="ghost" style="animation-delay:${steps.length * .05}s"><span class="sd"></span>えらぶ</span>`;
+  h += '</div>';
+  h += '<div class="pips">' + [1, 2, 3].map(n => `<span class="pip${n < cur.lv ? ' done' : n === cur.lv ? ' on' : ''}"></span>`).join('') + '</div>';
+  nav.steps = steps;
+  return h;
+}
+
+function vTitle() {
+  setBg('#F7F5EF');
+  const t = 'K.nomの教育アプリポータル';
+  const chars = t.split('').map((c, i) => `<span class="ch" style="animation-delay:${(.1 + i * .05).toFixed(2)}s,${(-i * .3).toFixed(2)}s">${c}</span>`);
+  if (mode === 'sp') chars.splice(6, 0, '<span style="flex-basis:100%;height:0"></span>');
+  const cnt = k => ITEMS.filter(x => x.kind === k).length;
+  const deco = ITEMS.map((x, i) => `<img src="${img(x.id, 1)}" alt="" style="animation-delay:${(.6 + i * .05).toFixed(2)}s,${(-i * .4).toFixed(2)}s">`).join('');
+  const mi = ITEMS.map(x => `<button class="mi bounce" data-open="${x.id}" title="${x.name}" aria-label="${x.name}"><img src="${img(x.id, 1)}" alt=""></button>`).join('');
+  const marq = `<div class="marq"><div class="mtrack">${mi}${mi.replace(/aria-label="[^"]*"/g, 'tabindex="-1" aria-hidden="true"')}</div></div>`;
+  return `<div class="title">
+    <h1 aria-label="${t}">${chars.join('')}</h1>
+    <div class="lead">小学校の先生が Claudeと作った、学習アプリ</div>
+    <img class="face" src="img/face.webp" alt="K.nom">
+    <div class="pbs">
+      <button class="pb bounce" data-kind="tool" style="animation-delay:.5s"><span><b>学習支援アプリ</b><small>授業や宿題で つかう（${cnt('tool')}本）</small></span><span class="arr" style="--arr:${GROUP.tool.bg}">${ARR}</span></button>
+      <button class="pb bounce" data-kind="game" style="animation-delay:.6s"><span><b>学習ゲームアプリ</b><small>あそびながら 勉強する（${cnt('game')}本）</small></span><span class="arr" style="--arr:${GROUP.game.bg}">${ARR}</span></button>
+    </div>
+    ${mode === 'pc' ? marq : `<div class="deco" aria-hidden="true">${deco}</div>`}
+    <div class="credit">制作：K.nom</div></div>`;
+}
+
+function vList() {
+  const G = GROUP[cur.kind]; setBg(G.bg);
+  const all = ITEMS.filter(x => x.kind === cur.kind);
+  const list = all.filter(x => (!flt.g || x.g.includes(flt.g)) && (!flt.s || x.s.includes(flt.s)));
+  const fbG = flt.g ? `${flt.g}年` : '学年';
+  const fbS = flt.s ? flt.s : '教科';
+  const cards = list.map((x, i) => `<button class="cd bounce" data-open="${x.id}" style="--c:${x.c};animation-delay:${(.08 + i * .05).toFixed(2)}s">
+      <span class="cbar"></span><img class="cth" src="${img(x.id, 1)}" alt="">
+      <span class="cn"><span>${x.br || x.name}</span></span>
+      <span class="cl"><span class="tag">${x.who || gradeTxt(x.g)}・${subjTxt(x.s)}</span><span class="arr">${ARR}</span></span></button>`).join('');
+  return header() + nav() + `<div class="main">
+    <div class="mh"><div class="tt"><h2>${G.label}</h2><p>${G.lead}　${list.length} / ${all.length}本</p></div>
+      <div class="fbs"><button class="fb bounce${flt.g ? ' on' : ''}" data-f="g">${IC.filt}${fbG}</button><button class="fb bounce${flt.s ? ' on' : ''}" data-f="s">${IC.filt}${fbS}</button></div></div>
+    ${list.length ? `<div class="grid">${cards}</div>` : '<div class="empty">あてはまる アプリが ないよ。<br>学年や教科を かえてみてね。</div>'}
+  </div>`;
+}
+
+function vApp() {
+  const x = IM[cur.id]; setBg(x.c);
+  const scr = x.n > 8;
+  const wrap = mode === 'sp' && !scr;
+  const thumbs = Array.from({ length: x.n }, (_, i) => `<button class="th bounce${i + 1 === slide ? ' on' : ''}" data-sl="${i + 1}" style="animation-delay:${(.15 + i * .03).toFixed(2)}s" aria-label="${i + 1}まいめ"><img src="${img(x.id, i + 1)}" alt=""></button>`).join('');
+  const btn = (url, label) => url
+    ? `<a class="go bounce" href="${url}" target="_blank" rel="noopener" style="--c:${x.c}">${label}で ひらく<span class="arr">${ARR}</span></a>`
+    : `<span class="go off" aria-disabled="true">${label}（じゅんび中）</span>`;
+  return header() + nav() + `<div class="main l3">
+    <div class="gal">
+      <button class="ic" data-a="prev" aria-label="まえの画像">${IC.back}</button>
+      <button class="big bounce" data-a="zoom" aria-label="大きく見る"><img id="bigimg" src="${img(x.id, slide)}" alt="${x.name}の画面"><span class="cnt" id="cnt">${slide} / ${x.n}</span></button>
+      <button class="ic" data-a="next" aria-label="つぎの画像">${IC.fwd}</button>
+    </div>
+    <div class="thw"><div class="tv${scr ? ' scr' : ''}${wrap ? ' wrap' : ''}" id="tv">${thumbs}</div>${scr ? '<div class="trk" id="trk"><div class="thm" id="thm"></div></div>' : ''}</div>
+    <div class="info">
+      <div class="it"><h2 style="font-size:${fit(x.name, mode === 'pc' ? 540 : 672, mode === 'pc' ? 28 : 36)}px">${x.name}</h2>
+        <div class="tags">${x.who ? `<span class="tag">${x.who}</span>` : ''}<span class="tag">${gradeTxt(x.g)}</span><span class="tag">${x.s.join('・')}</span></div>
+        <p>${x.desc}</p></div>
+      <div class="gos">${btn(x.gh, 'GitHub版')}${btn(x.cv, 'Canva版')}</div>
+    </div></div>
+`;
+}
+
+function render() {
+  closePop(); closeZoom();
+  stage.innerHTML = cur.lv === 1 ? vTitle() : cur.lv === 2 ? vList() : vApp();
+  if (cur.lv === 1 && mode === 'pc') setupMarq();
+  if (cur.lv === 3) { try { history.replaceState(null, '', '#' + cur.id); } catch (e) {} setupScroll(); }
+  else { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
+}
+
+function setSlide(n, d) {
+  const x = IM[cur.id];
+  slide = ((n - 1 + x.n) % x.n) + 1; dir = d;
+  const b = document.getElementById('bigimg');
+  b.className = ''; void b.offsetWidth; b.src = img(x.id, slide); b.className = d;
+  document.getElementById('cnt').textContent = `${slide} / ${x.n}`;
+  const z = document.getElementById('zimg');
+  if (z) { z.className = ''; void z.offsetWidth; z.src = img(x.id, slide); z.className = d; document.getElementById('zcnt').textContent = `${slide} / ${x.n}`; }
+  stage.querySelectorAll('.th').forEach(t => t.classList.toggle('on', +t.dataset.sl === slide));
+  const tv = document.getElementById('tv');
+  if (tv.classList.contains('scr')) {
+    const t = tv.querySelector('.th.on');
+    const l = t.offsetLeft - tv.offsetLeft, r = l + t.offsetWidth;
+    if (l < tv.scrollLeft) tv.scrollTo({ left: l - 6, behavior: 'smooth' });
+    else if (r > tv.scrollLeft + tv.clientWidth) tv.scrollTo({ left: r - tv.clientWidth + 6, behavior: 'smooth' });
+  }
+}
+
+// 自作の横スクロールバー（つまみドラッグ・レールを押すとそこへ・ホイール）
+function setupScroll() {
+  const tv = document.getElementById('tv'), trk = document.getElementById('trk'), thm = document.getElementById('thm');
+  if (!trk) return;
+  const scale = () => stage.getBoundingClientRect().width / stage.offsetWidth;
+  const sync = () => {
+    const ratio = tv.clientWidth / tv.scrollWidth;
+    const w = Math.max(40, trk.clientWidth * ratio);
+    thm.style.width = w + 'px';
+    const max = tv.scrollWidth - tv.clientWidth;
+    thm.style.left = (max > 0 ? tv.scrollLeft / max : 0) * (trk.clientWidth - w) + 'px';
+  };
+  tv.addEventListener('scroll', sync); sync();
+  tv.addEventListener('wheel', e => { e.preventDefault(); tv.scrollLeft += (Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX); }, { passive: false });
+  trk.addEventListener('pointerdown', e => {
+    if (e.target === thm) return;
+    const r = trk.getBoundingClientRect(), k = scale();
+    const p = ((e.clientX - r.left) / k - thm.offsetWidth / 2) / (trk.clientWidth - thm.offsetWidth);
+    tv.scrollTo({ left: Math.max(0, Math.min(1, p)) * (tv.scrollWidth - tv.clientWidth), behavior: 'smooth' });
+  });
+  thm.addEventListener('pointerdown', e => {
+    e.preventDefault(); thm.setPointerCapture(e.pointerId);
+    const sx = e.clientX, sl = tv.scrollLeft, k = scale();
+    const mv = ev => { const d = (ev.clientX - sx) / k; tv.scrollLeft = sl + d * (tv.scrollWidth - tv.clientWidth) / (trk.clientWidth - thm.offsetWidth); };
+    const upf = () => { thm.removeEventListener('pointermove', mv); thm.removeEventListener('pointerup', upf); };
+    thm.addEventListener('pointermove', mv); thm.addEventListener('pointerup', upf);
+  });
+}
+
+// 下を流れるタイトル画面：右から左へ自動で流れる。ドラッグ・スワイプで左右に送れる（慣性つき）
+let marqRaf = 0;
+function setupMarq() {
+  cancelAnimationFrame(marqRaf);
+  const box = stage.querySelector('.marq'), tr = stage.querySelector('.mtrack');
+  if (!box || !tr) return;
+  const AUTO = -36;                 // ふだんの速さ（px/秒、マイナス＝左へ）
+  let x = 0, v = AUTO, last = performance.now(), drag = null, hover = false, moved = 0;
+  const half = () => tr.scrollWidth / 2;
+  const scale = () => stage.getBoundingClientRect().width / stage.offsetWidth;
+  const wrap = () => { const h = half(); if (h > 0) { while (x <= -h) x += h; while (x > 0) x -= h; } };
+  const step = now => {
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    if (!drag) {
+      const target = hover ? 0 : AUTO;
+      v += (target - v) * Math.min(1, dt * (Math.abs(v - target) > 60 ? 1.6 : 3));  // 慣性：だんだん ふだんの速さにもどる
+      x += v * dt;
+    }
+    wrap(); tr.style.transform = `translateX(${x}px)`;
+    if (stage.contains(box)) marqRaf = requestAnimationFrame(step); else if (setupMarq.off) setupMarq.off();
+  };
+  box.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hover = true; });
+  box.addEventListener('pointerleave', () => { hover = false; });
+  box.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    drag = { id: e.pointerId, px: e.clientX, t: performance.now(), vs: [] }; moved = 0; box.dataset.moved = '';
+  });
+  const move = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const now = performance.now(), dx = (e.clientX - drag.px) / scale();
+    x += dx; moved += Math.abs(dx);
+    if (moved > 8) { box.dataset.moved = '1'; box.classList.add('drag'); }
+    drag.vs.push({ v: dx / Math.max(.001, (now - drag.t) / 1000), t: now }); drag.vs = drag.vs.filter(o => now - o.t < 100);
+    drag.px = e.clientX; drag.t = now;
+  };
+  const end = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const now = performance.now(), vs = drag.vs.filter(o => now - o.t < 100);
+    if (moved > 8) v = vs.length ? Math.max(-2400, Math.min(2400, vs.reduce((a, o) => a + o.v, 0) / vs.length)) : 0;
+    drag = null; box.classList.remove('drag');
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  const off = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end); };
+  setupMarq.off && setupMarq.off(); setupMarq.off = off;
+  // ドラッグしたときは、指をはなしてもアプリを開かない
+  box.addEventListener('click', e => { if (box.dataset.moved) { e.stopPropagation(); e.preventDefault(); } }, true);
+  last = performance.now(); marqRaf = requestAnimationFrame(step);
+}
+
+// ボタンを押したときの音
+const SE = new Audio('audio/se_click.mp3'); SE.preload = 'auto';
+function se() { try { const a = SE.cloneNode(); a.volume = .6; const p = a.play(); if (p) p.catch(() => {}); } catch (e) {} }
+document.addEventListener('click', e => {
+  const t = e.target.closest('button,a.go,.ov');
+  if (!t || t.disabled || t.classList.contains('off')) return;
+  if (t.classList.contains('ov') && e.target !== t) return;
+  const m = t.closest('.marq'); if (m && m.dataset.moved) return;
+  se();
+}, true);
+
+// しぼりこみのポップアップ
+function openPop(kind) {
+  const isG = kind === 'g';
+  const opts = isG ? [1, 2, 3, 4, 5, 6] : SUBJ;
+  const curV = isG ? flt.g : flt.s;
+  const ov = document.createElement('div'); ov.className = 'ov'; ov.id = 'pop';
+  ov.innerHTML = `<div class="panel" role="dialog" aria-label="${isG ? '学年' : '教科'}で しぼりこむ"><h3>${isG ? '学年' : '教科'}で しぼりこむ</h3>
+    <div class="sgs"><button class="sg bounce${curV == null ? ' on' : ''}" data-v="">ぜんぶ</button>${opts.map(o => `<button class="sg bounce${curV === o ? ' on' : ''}" data-v="${o}">${isG ? o + '年' : o}</button>`).join('')}</div>
+    <div class="prow"><button class="sg bounce" data-v="__close" style="width:200px">とじる</button></div></div>`;
+  ov.addEventListener('click', e => {
+    if (e.target === ov) return closePop();
+    const b = e.target.closest('[data-v]'); if (!b) return;
+    if (b.dataset.v === '__close') return closePop();
+    const v = b.dataset.v === '' ? null : (isG ? +b.dataset.v : b.dataset.v);
+    if (isG) flt.g = v; else flt.s = v;
+    render();
+  });
+  stage.append(ov);
+}
+function openZoom() {
+  const x = IM[cur.id];
+  const ov = document.createElement('div'); ov.className = 'ov'; ov.id = 'zoom';
+  ov.innerHTML = `<button class="ic zx" data-z="close" aria-label="とじる"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="zbox"><button class="ic" data-z="prev" aria-label="まえの画像">${IC.back}</button>
+    <div class="zimg"><img id="zimg" src="${img(x.id, slide)}" alt="${x.name}の画面"><span class="cnt" id="zcnt">${slide} / ${x.n}</span></div>
+    <button class="ic" data-z="next" aria-label="つぎの画像">${IC.fwd}</button></div>`;
+  ov.addEventListener('click', e => {
+    const b = e.target.closest('[data-z]');
+    if (b && b.dataset.z === 'prev') return setSlide(slide - 1, 'l');
+    if (b && b.dataset.z === 'next') return setSlide(slide + 1, 'r');
+    if ((b && b.dataset.z === 'close') || e.target === ov) closeZoom();
+  });
+  stage.append(ov);
+}
+function closeZoom() { const z = document.getElementById('zoom'); if (z) z.remove(); }
+function closePop() { const p = document.getElementById('pop'); if (p) p.remove(); }
+
+stage.addEventListener('click', e => {
+  if (e.target.closest('#pop') || e.target.closest('#zoom')) return;
+  const t = e.target.closest('button'); if (!t) return;
+  const a = t.dataset.a;
+  if (a === 'back') return back();
+  if (a === 'fwd') return fwd();
+  if (a === 'home') return go({ lv: 1 });
+  if (a === 'zoom') return openZoom();
+  if (a === 'prev') return setSlide(slide - 1, 'l');
+  if (a === 'next') return setSlide(slide + 1, 'r');
+  if (t.dataset.kind) return go({ lv: 2, kind: t.dataset.kind });
+  if (t.dataset.open) return go({ lv: 3, kind: IM[t.dataset.open].kind, id: t.dataset.open });
+  if (t.dataset.crumb != null) return go(nav.steps[+t.dataset.crumb].st);
+  if (t.dataset.f) return openPop(t.dataset.f);
+  if (t.dataset.sl) return setSlide(+t.dataset.sl, +t.dataset.sl < slide ? 'l' : 'r');
+});
+addEventListener('keydown', e => {
+  if (document.getElementById('pop')) { if (e.key === 'Escape') closePop(); return; }
+  if (document.getElementById('zoom') && e.key === 'Escape') return closeZoom();
+  if (cur.lv === 3 && e.key === 'ArrowLeft') setSlide(slide - 1, 'l');
+  if (cur.lv === 3 && e.key === 'ArrowRight') setSlide(slide + 1, 'r');
+});
+// #battle などで、そのアプリの紹介にいきなり飛ぶ
+const h0 = location.hash.slice(1);
+if (IM[h0]) { backS.push({ lv: 1 }, { lv: 2, kind: IM[h0].kind }); cur = { lv: 3, kind: IM[h0].kind, id: h0 }; }
+addEventListener('resize', layout);
+render(); layout();
+})();
 </script>
 </body>
 </html>
