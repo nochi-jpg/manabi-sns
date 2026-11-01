@@ -25,6 +25,8 @@
   - 新作の足し方：ITEMS に1件（kind tool/game・学年 g・教科 s・gh／cv のURL・説明）、REL のいちばん前、COL.apps に色、img/apps/<id>/ に画像。gh・cv が null のボタンは「（じゅんび中）」で暗くなる
   - #battle などで紹介へ直行（前のポータルのリンクもそのまま使える）。学年・教科は 11/1 時点で Claude の仮置き（先生の確認待ち）
   - 前のポータル（見本C）は git の履歴に残っている。/samples/・/devlog/ はそのまま
+  - **Canva版（11/2〜）**：`python3 tools/build_canva.py <Zen Maru Gothic の ttf フォルダ>` → dist/portal_canva.html（画像・音・使う字だけのフォントを入れた1ファイル。約4MB・上限10MB。dist/ はリポジトリに入れない）。Canva版では「Canva版で ひらく」が上（CANVA = true）。index.html を直したら作り直して先生に渡す
+  - Canva版のURL（11/2）：計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
 - **作者名（10/31〜）**：SNS・アプリ・note すべて「K.nom」に統一（10/30 の「K.nomura」から変更）。まなび堂名義はやめた。ゲーム本体の中のクレジット（まなび堂・K.nomura）は各ゲームのチャットで直す（SNS側では ゲームのコードを かえない）
 
 ## 画像

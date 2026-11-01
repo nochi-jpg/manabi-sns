@@ -253,10 +253,12 @@ const GROUP = {
   tool: { label: '学習支援アプリ', lead: '授業や宿題で つかう', bg: '#98D9A8' },
   game: { label: '学習ゲームアプリ', lead: 'あそびながら 勉強する', bg: '#FF96BE' }
 };
+// Canva版（tools/build_canva.py で作る1ファイル版）では true。Canva版のボタンを上にする（学校ではGitHubが開けないため）
+const CANVA = false;
 const S5 = ['国語', '算数', '理科', '社会', '英語'];
 // 学年・教科は仮（先生に確認する）
 const ITEMS = [
-  { id: 'keisan', kind: 'tool', name: '計算おたすけ君', c: '#FFAD5C', n: 4, g: [1], s: ['算数'], gh: 'https://nochi-jpg.github.io/otasuke-keisan/', cv: null,
+  { id: 'keisan', kind: 'tool', name: '計算おたすけ君', c: '#FFAD5C', n: 4, g: [1], s: ['算数'], gh: 'https://nochi-jpg.github.io/otasuke-keisan/', cv: 'https://daizou.my.canva.site/otasukeisan',
     desc: 'ブロック・数の線・さくらんぼで、くり上がり・くり下がりの考え方をおたすけ。問題に挑戦するモードもあり。' },
   { id: 'hissan', kind: 'tool', name: 'ひっ算おたすけ君', c: '#7FD0CC', n: 4, g: [2, 3, 4], s: ['算数'], gh: null, cv: 'https://daizou.my.canva.site/otasuke',
     desc: 'たし算・ひき算・かけ算・わり算の筆算を、答えは言わずに1段ずつおたすけ。さくらんぼ法や九九の表も見られる。' },
@@ -264,9 +266,9 @@ const ITEMS = [
     desc: 'ひっ算おたすけ君の、小数点がある計算に使える版。' },
   { id: 'kimochi', kind: 'tool', name: 'きもちをあらわすことばじてん', br: 'きもちをあらわす<br>ことばじてん', c: '#FFE04A', n: 7, g: [1, 2, 3, 4, 5, 6], s: ['国語'], gh: 'https://nochi-jpg.github.io/kimochi-search/', cv: 'https://daizou.my.canva.site/kimochi-jiten',
     desc: '作文の気持ちの書き方が、ワンパターンにならないように。7つの気持ちからえらんで、ぴったりの言葉を見つける辞典。言葉クイズつき。' },
-  { id: 'dragon', kind: 'game', name: 'まなびドラゴン', c: '#98D9A8', n: 6, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabi-dragon/', cv: null,
+  { id: 'dragon', kind: 'game', name: 'まなびドラゴン', c: '#98D9A8', n: 6, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabi-dragon/', cv: 'https://daizou.my.canva.site/manadora',
     desc: '勉強して竜を育て、ラスボスに挑む。学習×ローグライト。6教科1184問、1日3回まで。' },
-  { id: 'battle', kind: 'game', name: 'まなびバトル', c: '#FF96BE', n: 11, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabato/', cv: null,
+  { id: 'battle', kind: 'game', name: 'まなびバトル', c: '#FF96BE', n: 11, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manabato/', cv: 'https://daizou.my.canva.site/manabato3',
     desc: '5教科2500問に答えてモンスターを育て、ボスと戦う。友だちとQRで1台対戦。キャラはぜんぶ手描き。' },
   { id: 'stadium', kind: 'game', name: 'まなびスタジアム', c: '#BCAEF2', n: 5, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manasuta/', cv: null, who: '先生用',
     desc: '子どもの まなびバトルのQRを読みこんで、大画面で3Dの対戦を上映。クラス大会に。' },
@@ -393,7 +395,7 @@ function vApp() {
       <div class="it"><h2 style="font-size:${fit(x.name, mode === 'pc' ? 540 : 672, mode === 'pc' ? 28 : 36)}px">${x.name}</h2>
         <div class="tags">${x.who ? `<span class="tag">${x.who}</span>` : ''}<span class="tag">${gradeTxt(x.g)}</span><span class="tag">${x.s.join('・')}</span></div>
         <p>${x.desc}</p></div>
-      <div class="gos">${btn(x.gh, 'GitHub版')}${btn(x.cv, 'Canva版')}</div>
+      <div class="gos">${CANVA ? btn(x.cv, 'Canva版') + btn(x.gh, 'GitHub版') : btn(x.gh, 'GitHub版') + btn(x.cv, 'Canva版')}</div>
     </div></div>
 `;
 }
