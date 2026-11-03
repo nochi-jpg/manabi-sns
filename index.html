@@ -153,6 +153,11 @@ button{font-family:inherit;color:#1A1A1A;-webkit-tap-highlight-color:transparent
 .sp .cl{margin-top:0;align-self:end;height:48px}
 .sp .tag{font-size:17px;padding:5px 12px}
 .sp .cd .arr{width:48px;height:48px}
+.pager{display:flex;align-items:center;gap:12px;flex:none}
+.pager span{font-size:18px;font-weight:900;width:64px;text-align:center;white-space:nowrap}
+.pc .pager .ic{width:46px;height:46px}
+.sp .pager{justify-content:center}
+.sp .pager span{font-size:24px;width:90px}
 .empty{padding:60px 0;text-align:center;font-size:22px;font-weight:700;opacity:.7;animation:fade .5s ease}
 
 /* ポップアップ */
@@ -275,14 +280,17 @@ const ITEMS = [
   { id: 'historia', kind: 'game', name: 'まなびヒストリア', c: '#F4A88E', n: 6, g: [6], s: ['社会'], gh: 'https://nochi-jpg.github.io/manabi-historia/', cv: null,
     desc: 'タイムスリップして、ゆがめられた日本の歴史を正す。証言のおかしなところに「カード」をつきつける、歴史の追体験ゲーム。' },
   { id: 'life', kind: 'game', name: 'まなびライフ', c: '#8FB3DB', n: 6, g: [5, 6], s: ['キャリア'], gh: 'https://nochi-jpg.github.io/manabi-life/play/', cv: null,
-    desc: '日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。' }
+    desc: '日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。' },
+  { id: 'poker', kind: 'game', name: 'ことばポーカー　～主語と述語と～', br: 'ことばポーカー<br>～主語と述語と～', c: '#EFA9A6', n: 7, g: [2, 3, 4, 5, 6], s: ['国語'],
+  gh: 'https://nochi-jpg.github.io/word-poker/game/index.html', cv: 'https://daizou.my.canva.site/kotoba-poker',
+  desc: '主語・述語・修飾語を組み合わせてきそう、ことばのポーカー。カードゲームで楽しく、ことばの関係を覚えよう！' }
 ];
 // リリース順（新しい順）。新作はいちばん前に足す
-const REL = ['kimochi', 'shousu', 'hissan', 'keisan', 'life', 'historia', 'stadium', 'battle', 'dragon'];
+const REL = ['poker', 'kimochi', 'shousu', 'hissan', 'keisan', 'life', 'historia', 'stadium', 'battle', 'dragon'];
 ITEMS.sort((a, b) => REL.indexOf(a.id) - REL.indexOf(b.id));
 const IM = {}; ITEMS.forEach(x => IM[x.id] = x);
 // 色（カラー案2「やわらか」で決定）
-const COL = { tool: '#B7DFC6', game: '#F2C9D6', apps: { kimochi: '#F6E192', keisan: '#F7CBA0', shousu: '#C3CEF0', hissan: '#AEDAD6', life: '#B6CBE3', historia: '#F1C2B2', stadium: '#D2C9F1', battle: '#F2C3D3', dragon: '#B7DFC6' } };
+const COL = { tool: '#B7DFC6', game: '#F2C9D6', apps: { kimochi: '#F6E192', keisan: '#F7CBA0', shousu: '#C3CEF0', hissan: '#AEDAD6', life: '#B6CBE3', historia: '#F1C2B2', stadium: '#D2C9F1', battle: '#F2C3D3', dragon: '#B7DFC6', poker: '#EFA9A6' } };
 GROUP.tool.bg = COL.tool; GROUP.game.bg = COL.game; ITEMS.forEach(x => x.c = COL.apps[x.id]);
 const SUBJ = ['国語', '算数', '理科', '社会', '英語', 'キャリア'];
 const img = (id, i) => `img/apps/${id}/${i}.webp`;
@@ -297,13 +305,14 @@ function layout() {
   mode = vh > vw * 1.1 ? 'sp' : 'pc';
   if (!stage.classList.contains(mode)) { stage.className = mode; render(); }
   const W = mode === 'pc' ? 1280 : 720;
-  const H = mode === 'pc' ? 720 : Math.round(Math.max(1280, Math.min(1600, 720 * vh / vw)));
+  const H = stH = mode === 'pc' ? 720 : Math.round(Math.max(1280, Math.min(1600, 720 * vh / vw)));
   stage.style.height = H + 'px';
   stage.style.transform = `scale(${Math.min(vw / W, vh / H)})`;
 }
 
 // 状態とページ移動（ことばじてん：もどる＝ひとつ前に見ていた画面）
 let cur = { lv: 1 };
+let stH = 720;
 const backS = [], fwdS = [];
 const flt = { g: null, s: null };
 let slide = 1, dir = 'r';
@@ -365,14 +374,21 @@ function vList() {
   const list = all.filter(x => (!flt.g || x.g.includes(flt.g)) && (!flt.s || x.s.includes(flt.s)));
   const fbG = flt.g ? `${flt.g}年` : '学年';
   const fbS = flt.s ? flt.s : '教科';
-  const cards = list.map((x, i) => `<button class="cd bounce" data-open="${x.id}" style="--c:${x.c};animation-delay:${(.08 + i * .05).toFixed(2)}s">
+  // 1ページの枚数：PCは6枚（3×2）、スマホは画面の高さで決める
+  const per = mode === 'pc' ? 6 : Math.max(3, Math.floor((stH - 450) / 170));
+  const pages = Math.max(1, Math.ceil(list.length / per));
+  const pg = cur.pg = Math.min(cur.pg || 0, pages - 1);
+  const pager = pages > 1 ? `<div class="pager"><button class="ic" data-pg="-1" aria-label="まえのページ" ${pg === 0 ? 'disabled' : ''}>${IC.back}</button><span>${pg + 1} / ${pages}</span><button class="ic" data-pg="1" aria-label="つぎのページ" ${pg === pages - 1 ? 'disabled' : ''}>${IC.fwd}</button></div>` : '';
+  const cards = list.slice(pg * per, pg * per + per).map((x, i) => `<button class="cd bounce" data-open="${x.id}" style="--c:${x.c};animation-delay:${(.08 + i * .05).toFixed(2)}s">
       <span class="cbar"></span><img class="cth" src="${img(x.id, 1)}" alt="">
       <span class="cn"><span>${x.br || x.name}</span></span>
       <span class="cl"><span class="tag">${x.who || gradeTxt(x.g)}・${subjTxt(x.s)}</span><span class="arr">${ARR}</span></span></button>`).join('');
   return header() + nav() + `<div class="main">
     <div class="mh"><div class="tt"><h2>${G.label}</h2><p>${G.lead}　${list.length} / ${all.length}本</p></div>
+      ${mode === 'pc' ? pager : ''}
       <div class="fbs"><button class="fb bounce${flt.g ? ' on' : ''}" data-f="g">${IC.filt}${fbG}</button><button class="fb bounce${flt.s ? ' on' : ''}" data-f="s">${IC.filt}${fbS}</button></div></div>
     ${list.length ? `<div class="grid">${cards}</div>` : '<div class="empty">あてはまる アプリが ないよ。<br>学年や教科を かえてみてね。</div>'}
+    ${mode === 'sp' ? pager : ''}
   </div>`;
 }
 
@@ -530,6 +546,7 @@ function openPop(kind) {
     if (b.dataset.v === '__close') return closePop();
     const v = b.dataset.v === '' ? null : (isG ? +b.dataset.v : b.dataset.v);
     if (isG) flt.g = v; else flt.s = v;
+    cur.pg = 0;
     render();
   });
   stage.append(ov);
@@ -566,6 +583,7 @@ stage.addEventListener('click', e => {
   if (t.dataset.open) return go({ lv: 3, kind: IM[t.dataset.open].kind, id: t.dataset.open });
   if (t.dataset.crumb != null) return go(nav.steps[+t.dataset.crumb].st);
   if (t.dataset.f) return openPop(t.dataset.f);
+  if (t.dataset.pg) { cur.pg = (cur.pg || 0) + +t.dataset.pg; return render(); }
   if (t.dataset.sl) return setSlide(+t.dataset.sl, +t.dataset.sl < slide ? 'l' : 'r');
 });
 addEventListener('keydown', e => {
