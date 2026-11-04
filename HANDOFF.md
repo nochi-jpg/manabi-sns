@@ -47,7 +47,8 @@
   - **Canva版（11/2〜）**：`python3 tools/build_canva.py <Zen Maru Gothic の ttf フォルダ>` → dist/portal_canva.html（画像・音・使う字だけのフォントを入れた1ファイル。約4MB・上限10MB。dist/ はリポジトリに入れない）。Canva版では「Canva版で ひらく」が上（CANVA = true）。index.html を直したら作り直して先生に渡す
   - 一覧は1ページ PC 6枚・スマホは画面の高さで3〜6枚。こえたら「< 1 / 2 >」でページおくり（PCは見出しの右、スマホは一覧の下）
   - 11/3 新作「ことばポーカー ～主語と述語と～」（poker・国語2〜6年・赤）を追加
-  - Canva版のURL（11/2）：ことばポーカー kotoba-poker／計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
+  - 11/4 新作「おえかきリレー」（oekaki・学活1〜6年・アイスブレイク）を追加。教科に「学活」を追加。ゲームが7本になりPCもページおくりが出る
+  - Canva版のURL（11/2）：おえかきリレー oekaki-relay／ことばポーカー kotoba-poker／計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
 - **作者名（10/31〜）**：SNS・アプリ・note すべて「K.nom」に統一（10/30 の「K.nomura」から変更）。まなび堂名義はやめた。ゲーム本体の中のクレジット（まなび堂・K.nomura）は各ゲームのチャットで直す（SNS側では ゲームのコードを かえない）
 
 ## 画像
