@@ -50,7 +50,8 @@
   - 11/4 新作「おえかきリレー」（oekaki・学活1〜6年・アイスブレイク）を追加。教科に「学活」を追加。ゲームが7本になりPCもページおくりが出る
   - 11/11 新作「小学校パソコンスキルマスター」（pcmaster・学習支援・総合1〜6年・青）を追加。教科に「総合」を追加
   - 11/14 新作「らくがき学習バトル」（rakugaki・ゲーム・5教科1〜6年・グレー）を追加。リンク用画像（img/ogp.jpg）は新作を足したらトップを撮り直す（流れを止めて新作が左はし、1200×630。og:image の ?v= も変える）
-  - Canva版のURL（11/2）：らくがき学習バトル rakugaki1／パソコンスキルマスター pc-master2／おえかきリレー oekaki-relay／ことばポーカー kotoba-poker／計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
+  - 11/18 新作「えいたんエイリアン」（eitan・学習支援・英語3〜6年・パステルむらさき）を追加。紹介文はPCで2行までに収める（3行だと下がきゅうくつ）。説明欄の高さを130pxに
+  - Canva版のURL（11/2）：えいたんエイリアン eitan／らくがき学習バトル rakugaki1／パソコンスキルマスター pc-master2／おえかきリレー oekaki-relay／ことばポーカー kotoba-poker／計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
 - **作者名（10/31〜）**：SNS・アプリ・note すべて「K.nom」に統一（10/30 の「K.nomura」から変更）。まなび堂名義はやめた。ゲーム本体の中のクレジット（まなび堂・K.nomura）は各ゲームのチャットで直す（SNS側では ゲームのコードを かえない）
 
 ## 画像
