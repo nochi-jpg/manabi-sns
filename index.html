@@ -277,9 +277,9 @@ const ITEMS = [
     desc: '5教科2500問に答えてモンスターを育て、ボスと戦う。友だちとQRで1台対戦。キャラはぜんぶ手描き。' },
   { id: 'stadium', kind: 'game', name: 'まなびスタジアム', c: '#BCAEF2', n: 5, g: [4, 5, 6], s: S5, gh: 'https://nochi-jpg.github.io/manasuta/', cv: null, who: '先生用',
     desc: '子どもの まなびバトルのQRを読みこんで、大画面で3Dの対戦を上映。クラス大会に。' },
-  { id: 'historia', kind: 'game', name: 'まなびヒストリア', c: '#F4A88E', n: 6, g: [6], s: ['社会'], gh: 'https://nochi-jpg.github.io/manabi-historia/', cv: null,
+  { id: 'historia', kind: 'game', name: 'まなびヒストリア', c: '#F4A88E', n: 6, g: [6], s: ['社会'], gh: 'https://nochi-jpg.github.io/manabi-historia/', cv: null, dl: 'https://nochi-jpg.github.io/manabi-historia/index.html', dlName: 'manabi-historia.html',
     desc: 'タイムスリップして、ゆがめられた日本の歴史を正す。証言のおかしなところに「カード」をつきつける、歴史の追体験ゲーム。' },
-  { id: 'life', kind: 'game', name: 'まなびライフ', c: '#8FB3DB', n: 6, g: [5, 6], s: ['キャリア'], gh: 'https://nochi-jpg.github.io/manabi-life/play/', cv: null,
+  { id: 'life', kind: 'game', name: 'まなびライフ', c: '#8FB3DB', n: 6, g: [5, 6], s: ['キャリア'], gh: 'https://nochi-jpg.github.io/manabi-life/play/', cv: null, dl: 'https://nochi-jpg.github.io/manabi-life/play/index.html', dlName: 'manabi-life.html',
     desc: '日本のどこかに生まれた1人の人生を、0歳から最期まで。公的な統計にもとづく、超リアル人生シミュレーター。' },
   { id: 'poker', kind: 'game', name: 'ことばポーカー　～主語と述語と～', br: 'ことばポーカー<br>～主語と述語と～', c: '#EFA9A6', n: 7, g: [2, 3, 4, 5, 6], s: ['国語'],
   gh: 'https://nochi-jpg.github.io/word-poker/game/index.html', cv: 'https://daizou.my.canva.site/kotoba-poker',
@@ -412,6 +412,11 @@ function vApp() {
   const btn = (url, label) => url
     ? `<a class="go bounce" href="${url}" target="_blank" rel="noopener" style="--c:${x.c}">${label}で ひらく<span class="arr">${ARR}</span></a>`
     : `<span class="go off" aria-disabled="true">${label}（じゅんび中）</span>`;
+  // Canvaに入り切らない作品（dl あり）は、2つ目のボタンを「HTMLをダウンロード」にする。Canva版ポータルではダウンロードが動かないので暗くする
+  const DL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+  const b2 = x.cv || !x.dl ? btn(x.cv, 'Canva版')
+    : CANVA ? `<span class="go off" aria-disabled="true">HTMLは GitHub版から</span>`
+    : `<a class="go bounce" href="${x.dl}" download="${x.dlName}" style="--c:${x.c}">HTMLをダウンロード<span class="arr">${DL}</span></a>`;
   return header() + nav() + `<div class="main l3">
     <div class="gal">
       <button class="ic" data-a="prev" aria-label="まえの画像">${IC.back}</button>
@@ -423,7 +428,7 @@ function vApp() {
       <div class="it"><h2 style="font-size:${fit(x.name, mode === 'pc' ? 540 : 672, mode === 'pc' ? 28 : 36)}px">${x.name}</h2>
         <div class="tags">${x.who ? `<span class="tag">${x.who}</span>` : ''}<span class="tag">${gradeTxt(x.g)}</span><span class="tag">${x.s.join('・')}</span></div>
         <p>${x.desc}</p></div>
-      <div class="gos">${CANVA ? btn(x.cv, 'Canva版') + btn(x.gh, 'GitHub版') : btn(x.gh, 'GitHub版') + btn(x.cv, 'Canva版')}</div>
+      <div class="gos">${CANVA ? b2 + btn(x.gh, 'GitHub版') : btn(x.gh, 'GitHub版') + b2}</div>
     </div></div>
 `;
 }
