@@ -53,6 +53,7 @@
   - 11/18 新作「えいたんエイリアン」（eitan・学習支援・英語3〜6年・パステルむらさき）を追加。紹介文はPCで2行までに収める（3行だと下がきゅうくつ）。説明欄の高さを130pxに
   - 11/23 Canvaの10MBに入り切らない作品（まなびヒストリア・まなびライフ）は、2つ目のボタンを「HTMLをダウンロード」に（ITEMS の dl＝各リポジトリの1ファイル版のURL、dlName＝保存名。英字にする：日本語名だとブラウザによって「download」になる）。同じ nochi-jpg.github.io の中なのでそのまま保存される。Canva版ポータルではダウンロードが動かないので「HTMLは GitHub版から」と暗く表示
   - 11/23 新作「歴史カードバトル」（rekishi・ゲーム・社会6年・金）を追加。紹介画像は Claude がゲームを動かして撮影し、黄色い帯の見出しを入れて作った（tools/intro_caption.py）。1ファイル版は rekishi-card/dist/rekishi-card.html（約20MB）なので「HTMLをダウンロード」
+  - 11/24 新作「ノベルメーカー」（novel・学習支援・国語/探究/プログラミング1〜6年・オレンジ）を追加。紹介画像は Claude が test/click.py の画面撮影をフルHDにして撮り、見出しを入れた。1ファイル版 novel-maker-edu.html（約7MB）を「GitHub版」と「HTMLをダウンロード」の両方に。教科が3つ以上の作品はカードでは「国語など」と表示。11/24時点で novel-maker の GitHub Pages がオフ（先生がオンにする必要あり）
   - Canva版のURL（11/2）：えいたんエイリアン eitan／らくがき学習バトル rakugaki1／パソコンスキルマスター pc-master2／おえかきリレー oekaki-relay／ことばポーカー kotoba-poker／計算 otasukeisan／まなバト manabato3／まなドラ manadora／ことばじてん kimochi-jiten／ひっ算 otasuke／小数 otasukeshosu（すべて https://daizou.my.canva.site/〜）
 - **作者名（10/31〜）**：SNS・アプリ・note すべて「K.nom」に統一（10/30 の「K.nomura」から変更）。まなび堂名義はやめた。ゲーム本体の中のクレジット（まなび堂・K.nomura）は各ゲームのチャットで直す（SNS側では ゲームのコードを かえない）
 
