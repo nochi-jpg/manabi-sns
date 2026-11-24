@@ -1,5 +1,5 @@
 # 作品紹介シリーズの Instagram 画像（1080×1350）を作る。
-# 使い方: python3 render.py <manabi-sns のパス> <Zen Maru Gothic の ttf フォルダ> <出力フォルダ>
+# 使い方: python3 render.py <manabi-sns のパス> <Zen Maru Gothic の ttf フォルダ> <出力フォルダ> [id,id,...（省略で全部）]
 import sys, os, html
 sys.path.insert(0, os.path.dirname(__file__))
 from data import APPS
@@ -53,8 +53,8 @@ def slides(a):
     yield page(a, f'<h2>どんなアプリ？</h2>{im(a,i2)}<ul>' + "".join(f"<li>{e(t)}</li>" for t in a["feat"]) + "</ul>")
     yield page(a, f'<h2>どう使う？</h2>{im(a,i3)}<p class=txt>{e(a["use"])}</p>')
     memo = a["instr_title"].startswith("引き")
-    lab = "理念メモより" if memo else "K.nom → Claude"
-    nt = "※ 整数版で決めた理念メモから、そのまま抜き出しています。" if memo else "※ Claudeとのやりとりの記録を、短くまとめたものです。"
+    lab = a.get("lab") or ("理念メモより" if memo else "K.nom → Claude")
+    nt = a.get("nt") or ("※ 整数版で決めた理念メモから、そのまま抜き出しています。" if memo else "※ Claudeとのやりとりの記録を、短くまとめたものです。")
     yield page(a, f'<h2>{e(a["instr_title"])}</h2>' + "".join(f'<div class="bub me"><b>{lab}</b>{e(t)}</div>' for t in a["instr"])
                + f'<p class=note>{nt}</p>')
     yield page(a, f'<h2>遊んでみてください</h2>{im(a,1)}<p class=big>プロフィールのリンク<br>「K.nomの教育アプリポータル」から</p>'
@@ -73,7 +73,9 @@ with sync_playwright() as p:
     b = p.chromium.launch()
     pg = b.new_page(viewport={"width": 1080, "height": 1350})
     problems = []
+    only = sys.argv[4].split(",") if len(sys.argv) > 4 else None
     for a in APPS:
+        if only and a["id"] not in only: continue
         for k, h in enumerate(slides(a), 1):
             f = f"/tmp/s_{a['id']}_{k}.html"
             open(f, "w").write(h)
